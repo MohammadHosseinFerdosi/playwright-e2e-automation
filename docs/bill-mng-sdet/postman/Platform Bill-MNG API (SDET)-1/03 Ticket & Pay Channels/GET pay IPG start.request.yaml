@@ -1,0 +1,5 @@
+$kind: http-request
+description: Starts IPG redirect / mediator page.
+url: "{{baseUrl}}/bills/pay/ipg/{{ticket}}"
+method: GET
+order: 6000

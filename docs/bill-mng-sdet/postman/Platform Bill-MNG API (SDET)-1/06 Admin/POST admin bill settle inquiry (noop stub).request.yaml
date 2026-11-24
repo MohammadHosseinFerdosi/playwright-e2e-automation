@@ -1,0 +1,5 @@
+$kind: http-request
+description: Currently returns SUCCESS without processing (commented settlementService).
+url: "{{baseUrl}}/admin/bill/settle/inquiry?date=1609459200000"
+method: POST
+order: 9000

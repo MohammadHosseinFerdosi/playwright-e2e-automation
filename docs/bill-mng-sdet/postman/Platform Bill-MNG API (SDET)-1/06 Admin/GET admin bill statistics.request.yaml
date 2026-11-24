@@ -1,0 +1,5 @@
+$kind: http-request
+description: type=0 → Type.BILL. start/end = epoch millis.
+url: "{{baseUrl}}/admin/bill/0/statistics?start=1609459200000&end=1893456000000"
+method: GET
+order: 7000

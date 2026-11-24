@@ -1,0 +1,3 @@
+$kind: collection
+description: Primary E2E path for API automation. Run in order. After pay, poll details until CONFIRMED(7) or ORDERED(12) — verify/settle are async via RabbitMQ.
+order: 1000

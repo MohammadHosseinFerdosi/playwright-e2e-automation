@@ -1,0 +1,13 @@
+$kind: http-request
+description: PUTs every `@ALPHA-T####` scenario in the file. Unchanged cases are skipped.
+url: "{{syncBaseUrl}}/zephyr/sync"
+method: POST
+headers:
+  X-Mode: update
+  X-Feature: "{{featurePath}}"
+  X-Zephyr-Folder: "{{zephyrFolder}}"
+  X-Dry-Run: "false"
+body:
+  type: text
+  content: ""
+order: 1000

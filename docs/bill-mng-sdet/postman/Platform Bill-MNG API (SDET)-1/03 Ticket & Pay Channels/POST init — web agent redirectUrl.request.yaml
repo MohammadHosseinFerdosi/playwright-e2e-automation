@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/bills/init"
+method: POST
+headers:
+  Agent: WEB
+body:
+  type: text
+  content: |-
+    {
+      "billId": "2664034900143",
+      "payId": "51450157",
+      "callbackUrl": "{{callbackUrl}}",
+      "redirectUrl": "https://example.com/web/callback"
+    }
+order: 2000

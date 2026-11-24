@@ -1,0 +1,13 @@
+$kind: http-request
+description: SimpleBillInquiryRequest — DEPRECATED.
+url: "{{baseUrl}}/bills/inquiry"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "payMethod": 2,
+      "type": 5,
+      "billId": "9109143204124"
+    }
+order: 3000

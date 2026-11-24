@@ -1,0 +1,14 @@
+$kind: http-request
+description: "`X-Mode: sync` = `--create --update`."
+url: "{{syncBaseUrl}}/zephyr/sync"
+method: POST
+headers:
+  X-Mode: sync
+  X-Features: "{{featuresRoot}}"
+  X-Zephyr-Folder: "{{zephyrFolder}}"
+  X-Git-Branch: "{{gitBranch}}"
+  X-Dry-Run: "false"
+body:
+  type: text
+  content: ""
+order: 1000

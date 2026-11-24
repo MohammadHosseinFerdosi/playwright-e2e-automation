@@ -1,0 +1,5 @@
+$kind: http-request
+description: MTN cell inquiry fixture from BillInquiryResourceIT.
+url: "{{baseUrl}}/bills/inquiry/09037083670?operator=2"
+method: GET
+order: 5000

@@ -1,0 +1,30 @@
+# Copy to repo root with Dockerfile. Keeps live secrets and junk out of the image.
+.git
+.venv
+venv
+**/__pycache__
+**/*.pyc
+.pytest_cache
+allure-results
+allure-report
+*.html
+output.xml
+report.xml
+log.html
+
+# Never bake real credentials
+secrets/*
+!secrets/*.example.yaml
+!secrets/*.example.env
+
+# Legacy Robot (should not exist in greenfield; safe if still present in hybrid tree)
+features/
+src/apis/
+src/steps/
+src/pages/
+src/services/
+src/library/
+requirements.txt
+qa-script-api.*
+mini_apps/
+robot-claude-agent-setup/

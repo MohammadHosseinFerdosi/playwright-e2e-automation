@@ -1,0 +1,13 @@
+$kind: http-request
+description: CustomBillInquiryRequest. type = BillType API int (GAS=6, WATER=4, ELECTRICITY=5, TELEPHONE=7).
+url: "{{baseUrl}}/bills/inquiry"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "payMethod": 3,
+      "type": {{billTypeApi}},
+      "inquiryId": "{{inquiryId}}"
+    }
+order: 2000

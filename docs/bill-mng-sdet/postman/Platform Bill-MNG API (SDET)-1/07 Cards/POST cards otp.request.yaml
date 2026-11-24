@@ -1,0 +1,14 @@
+$kind: http-request
+description: "Card OTP for pay flows. Headers: ticket + User-Id. transactionType 2 = UTILITY_BILL."
+url: "{{baseUrl}}/cards/otp"
+method: POST
+headers:
+  ticket: "{{ticket}}"
+body:
+  type: text
+  content: |-
+    {
+      "pan": "6037991234567890",
+      "transactionType": 2
+    }
+order: 1000

@@ -1,0 +1,5 @@
+$kind: http-request
+name: DELETE recommendations/{type}/{id}
+url: "{{baseUrl}}/recommendations/{{recommendationType}}/{{recommendationId}}"
+method: DELETE
+order: 5000

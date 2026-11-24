@@ -1,0 +1,5 @@
+$kind: http-request
+description: billType uses API BillType int (WATER=4).
+url: "{{baseUrl}}/recommendations/{{recommendationType}}?billType=4"
+method: GET
+order: 3000

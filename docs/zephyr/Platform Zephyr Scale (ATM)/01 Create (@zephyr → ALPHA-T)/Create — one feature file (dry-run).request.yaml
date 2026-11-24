@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  Scans the feature for `@zephyr` scenarios (no ALPHA-T yet) and previews creates.
+
+  Body is intentionally empty — everything is in headers.
+url: "{{syncBaseUrl}}/zephyr/sync"
+method: POST
+headers:
+  - key: X-Mode
+    value: create
+    description: create | update | sync
+  - key: X-Feature
+    value: "{{featurePath}}"
+    description: Path relative to repo root
+  - key: X-Zephyr-Folder
+    value: "{{zephyrFolder}}"
+    description: Copy from Zephyr UI — folder must exist
+  - key: X-Git-Branch
+    value: "{{gitBranch}}"
+    description: Stored as Zephyr label branch:…
+  - key: X-Dry-Run
+    value: "true"
+    description: true = preview only
+body:
+  type: text
+  content: ""
+order: 1000

@@ -1,0 +1,41 @@
+### Creadentional variables
+DASHBOARD_USERNAME: test-staff-user
+DASHBOARD_PASSWORD: CHANGE_ME
+USER_CELL_NUMBER_PREFIX: 0945
+
+### Wallet vaiables
+TIME_BOUND_WALLET_DEFINITION_EXPIRATION_THRESHOLD_MS: 40000
+
+### Finantional variables
+TEST_CASH_IN_TOTAL_AMOUNT: 6000
+
+### Variables for negative scenarios
+INVALID_TOTAL_BALANCE: 2000
+INVALID_USER_ID: asdf234234asdasdfaaaasdf34
+INVALID_BUSINESS_ID: asd234234adf234243234asdf
+INVALID_BUSINESS_WALLET_NAME: b-wallet-invalid
+SPEND_WALLET_USER_NOT_FOUND_FAILURE_CONTENT:
+  title: "WALLET_USER_NOT_FOUND"
+  status: 8011
+  message: 'اطلاعات کاربری کیف پول کاربر مورد نظر یافت نشد'
+  level: "WARN"
+ACCOUNT_NOT_FOUND_FAILURE_CONTENT:
+  title: "ACCOUNT_NOT_FOUND"
+  status: 1026
+  message: 'حساب مورد نظر یافت نشد.'
+  level: "WARN"
+INVALID_SPLIT_SPEND_PARAMETERS_FAILURE_CONTENT:
+  title: "INVALID_PARAMETER"
+  status: 1054
+  message: 'اطلاعات تسهیم صحیح نمی باشد'
+  level: "WARN"
+DIFFERENT_AMOUNT_SOURCE_AND_DESTINATION_FAILURE_CONTENT:
+  title: "INVALID_PARAMETER"
+  status: 1054
+  message: 'مبلغ کل مبدا با مبلغ کل مقصد تفاوت دارد'
+  level: "WARN"
+SPEND_AMOUNT_UPPER_THAN_TOTAL_AMOUNT_FAILURE_CONTENT:
+  title: "WALLET_GW_CREDIT_NOT_ENOUGH"
+  status: 8151
+  message: 'موجودی کافی نیست.'
+  level: "WARN"

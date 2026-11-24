@@ -1,0 +1,6 @@
+$kind: http-request
+name: GET recommendations/{type} type=2 utility bill
+description: type=2 → UTILITY_BILL (TransactionType). Optional ?billType=
+url: "{{baseUrl}}/recommendations/{{recommendationType}}"
+method: GET
+order: 2000

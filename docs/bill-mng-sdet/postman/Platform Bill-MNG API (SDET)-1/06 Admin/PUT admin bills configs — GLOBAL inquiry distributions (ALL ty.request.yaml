@@ -1,0 +1,17 @@
+$kind: http-request
+name: PUT admin bills configs — GLOBAL inquiry distributions (ALL types)
+description: |-
+  WARNING: applies same weights to EVERY bill type. Prefer per-type PUT on shared UAT.
+  Providers: FINNOTECH=0 GHABZINO=1 ENOVIN=2
+url: "{{baseUrl}}/admin/bills/configs"
+method: PUT
+body:
+  type: text
+  content: |-
+    {
+      "inquiryDistributions": [
+        { "provider": 1, "weight": 80.0 },
+        { "provider": 0, "weight": 20.0 }
+      ]
+    }
+order: 6000

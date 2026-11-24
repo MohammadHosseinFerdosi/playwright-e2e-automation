@@ -1,0 +1,14 @@
+$kind: http-request
+description: Creates Zephyr cases and writes `@ALPHA-T####` into the .feature (removes `@zephyr`). Commit the file after.
+url: "{{syncBaseUrl}}/zephyr/sync"
+method: POST
+headers:
+  X-Mode: create
+  X-Feature: "{{featurePath}}"
+  X-Zephyr-Folder: "{{zephyrFolder}}"
+  X-Git-Branch: "{{gitBranch}}"
+  X-Dry-Run: "false"
+body:
+  type: text
+  content: ""
+order: 2000

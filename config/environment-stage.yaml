@@ -1,0 +1,179 @@
+APP_BASE_URL: https://example.com
+APP_HUB_URL: https://example.com/hub
+APP_LOGIN_URL: https://example.com/auth/login
+MICROSERVICE_BASE_URL: https://example.com
+DASHBOARD_BASE_URL: https://example.com
+DASHBOARD_LOGIN_URL: https://example.com/management-console/login
+DASHBOARD_HOME_URL: https://example.com/management-console/home
+GENERAL_BASE_URL: https://example.com
+DB_BASE_URL: https://example.com
+WEB_BASE_URL: https://example.com
+MOCKIT_ROUTES_URL: https://example.com/routes
+MOCKIT_URL: https://example.com/route
+MOCKIT_URL_2: https://example.com
+CHARISMA_URL: https://api.charisma.ir
+
+## PATHs
+GATEWAY_PATH: /platform/api
+MS_NEMO_PATH: /nemo/platform/api
+MS_WALLET_PROVIDER_PATH: /wallet-provider/platform/api
+MS_SWITCH_BANK_PATH: /switch-bank/platform/api
+MS_SWITCH_PSP_PATH: /switch-psp/platform/api
+MS_SETTLEMENT_PATH: /settlement/platform/api
+MS_BANK_TRANSFER_PATH: /bank-transfer/platform/api
+MS_UAA_PATH: /uaa/platform/api
+MS_TGS_PATH: /tgs/platform/api
+MS_COMPANYCARD_PATH: /companycard/platform/api
+MS_PURCHASE_PATH: /purchase-mng/platform/api
+MS_MOCK_PATH: /ipg-mock/platform/api
+MONGO_DB_PATH: /mongodb
+MS_CREDIT_ONBOARDING_PATH: /credit-onboarding/platform/api/credit
+MS_FILE_SERVER_PATH: /file-server/platform/api
+MS_UNDERWRITING_PATH: /underwriting/platform/api/credit
+MS_CREDIT_MNG_PATH: /credit-mng/platform/api/credit
+MS_CREDIT_PROFILE_MNG_PATH: /credit-profile-mng/platform/api
+MS_FUND_PROVIDER_MNG_PATH: /fund-provider-mng/platform/api
+MS_CREDIT_MNG_MERCHANTS_PATH: /credit-mng/platform/api/merchants
+MS_KYC_PATH: /kyc/platform/api
+MS_CREDIT_MERCHANT_MNG_PATH: credit-merchant-mng/platform/api
+MS_REPORT_MNG_PATH: report-mng/platform/api
+MS_CREDIT_ACCOUNT_MNG_PATH: /credit-account-mng/platform/api
+MS_COUPON: /coupon/platform/api
+MS_GL_PATH: /general-ledger/platform
+
+# Pre-KYC'd, funded UAT account — the only known account that reaches the real
+# silver amount-input screen instead of the one-time identity/BNPL gate.
+WEALTH_SILVER_KYC_TEST_CELL_NUMBER: "09131562201"
+
+HUB_PAGE_PATH: /hub
+CONFIRM_PAGE_PATH: /confirm
+TOP_UP_PAGE_PATH: /top-up
+INTERNET_PAGE_PATH: /internet
+INTERNET_BUNDLES_PAGE_PATH: /internet/purchase
+UPG_PAGE_PATH: /web-pay
+IPG_MOCK_PATH: /ipg-mock
+
+MS_PROMISSORY_NOTE_PATH: /promissory-note/platform/api/
+MS_BACKOFFICE_LANDING_PATH: backoffice/collateralmanagement
+MS_BACKOFFICE_TREASURY_PATH: backoffice/treasury-management
+MS_KYC_LIVENESS_PATH: /kyc-liveness/platform/api
+MS_DIGITAL_SIGNATURE_PATH: /digital-signature/platform/api
+MS_WEALTH_PATH: /wealth/v1
+CHARISMA_PATH: /plan/api
+
+## Authorization
+APP_BASIC_AUTH: Basic
+  d2ViYXBwLWNsaWVudC1pZDp3ZWJhcHAtY2xpZW50LXNlY3JldC0zY2MwNTA0YS03NmM1LTQ4OGQtOGYyMC04YjIzNTEyNmM1ZDA=
+DASHBOARD_BASIC_AUTH: Basic
+  bWMtY2xpZW50LWlkOm1jLXNlY3JldC0yNDhmNGIzYi01ZWM5LTQyYjAtOTlmMC1kMjNlMGMxNTQ3MDk=
+BUSINESS_BASIC_AUTH: Basic
+  ZGlnaXBheS1jbGllbnQtaWQ6ZGlnaXBheS1zZWNyZXQtOTEwMDRhZWY3NGZjN2E4ZGI1M2E5ZjQ0ZDYxMDkxMzk=
+
+## Mongo DB
+HOST: "10.198.111.51"
+PORT: "27017"
+PASSWORD: "CHANGE_ME"
+
+## Business config for charge test wallets in initialize service
+BUSINESS_ID_FOR_CHARGE_TEST_WALLETS: 38bde9fe-c19c-4238-81c2-68b4b36876c0
+BUSINESS_WALLET_FOR_CHARGE_TEST_WALLETS: settlement
+BUSINESS_WALLET_FOR_CHARGE_CREDIT_TEST_WALLETS: credit-settlement
+
+GRID_REMOTE_URL: http://172.22.29.66:4444
+
+RABBITMQ_URL: https://example.com
+RABBITMQ_PORT: 443
+RABBITMQ_USER: rabbitadmin
+RABBITMQ_PASS: E1AURm6bTP
+
+PLATFORM_UESERNAME: platform-username
+PLATFORM_PASSWORD: CHANGE_ME
+PLATFORM_BUSINESS_ID: platform
+
+PLATFORM_COUPON_FUNDER_WALLET_NAME: refund
+
+COMPANY_USERNAME: company-ipg-test
+COMPANY_PASSWORD: CHANGE_ME
+COMPANY_BUSINESS_ID: eec4d9b0-e5cb-4712-a896-a458f432c8d1
+COMPANY_USER_ID: company-user-id
+
+DASHBOARD_USERNAME: test-staff-user
+DASHBOARD_PASSWORD: CHANGE_ME
+
+USER_ACCESS_USERNAME: h-fidibo
+USER_ACCESS_PASSWORD: CHANGE_ME
+
+PURCHASE_MNG_DB_MANE: purchase_management_db
+TGS_DB_NAME: tgs_db
+NEMO_DB_NAME: wallet_db
+REPORT_MNG_DB_NAME: report_mng_db
+COMPANYCARD_DB_NAME: companycard_db
+REFUND_DB_NAME: refund_db
+SMC_MNG_DB_MANE: smc_db
+SWITCH_PSP_DB_NAME: switch_psp_db
+SWITCH_CREDIT_DB_NAME: switch_credit_db
+COUPON_DB: coupon_db
+T&C_COLLECTIONS: user_tac
+
+PURCHASE_MNG_PURCHASE_COLLECTION: purchases
+PURCHASE_MNG_REVERSE_COLLECTION: reverses
+TGS_TICKET_COLLECTION: tickets
+NEMO_PAYMENT_COLLECTION: payments
+REPORT_MNG_ACTIVITIES_COLLECTION: activities
+REPORT_USER_TRANSACTION_COLLECTION: user_transactions
+COMPANYCARD_PLATFORM_PURCHASES_COLLECTION: platform_purchases
+PURCHASE_MNG_REFUND_COLLECTION: refunds
+REFUND_REFUND_JUORNAL: refund_journal
+SMC_MNG_SCORE_JOURNALS_COLLECTION: score_journals
+SWITCH_PSP_TERMINALS_COLLECTION: terminals
+SWITCH_PSP_IPG_DETAILS_CHOICE: ipg_choice_details
+
+MCRED_KHANOMI_USERNAME: test-khanoumi
+MCRED_KHANOMI_PASSWORD: CHANGE_ME
+
+MONGO_DB_DEFAULT_PASS: "123456"
+MONGO_DB_DEFAULT_HOST: "10.198.111.51"
+MONGO_DB_DEFAULT_PORT: "27017"
+CREDIT_USER: "switch_credit_user"
+CREDIT_DB: "switch_credit_db"
+APP_SUBSCRIPTION_USER: "app_subscription_user"
+PP_SUBSCRIPTIO_DB: "app_subscription_db"
+DIGITAL_SIGNATURE_USER: "digital_signature_provider_user"
+DIGITAL_SIGNATURE_DB: "digital_signature_provider_db"
+SCORE_USER: "credit_score_user"
+SCORE_DB: "credit_score_db"
+underwriting_USER: "underwriting_user"
+underwriting_DB: "underwriting_db"
+
+MYSQL_DB_DEFAULT_PASS: "123456"
+MYSQL_DB_DEFAULT_DB: "123456"
+MYSQL_DB_DEFAULT_HOST: "10.198.111.65"
+MYSQL_DB_DEFAULT_PORT: "3306"
+WALLET_PROVIDER_MYSQL_DB_PASS: "Password@123"
+WALLET_PROVIDER_MYSQL_DB_HOST: "10.198.111.63"
+GENERAL_LEDGER_MYSQL_DB_PASS: "&9ZBXxn26pB9"
+GENERAL_LEDGER_MYSQL_DB_HOST: "10.198.111.63"
+
+POSTGRES_DB_COLLATERAL_MANAGEMENT_HOST: "10.198.111.81"
+POSTGRES_DB_COLLATERAL_MANAGEMENT_PORT: "5432"
+POSTGRES_DB_COLLATERAL_MANAGEMENT_USER: "backoffice_user"
+POSTGRES_DB_COLLATERAL_MANAGEMENT_PASS: "y1vEQ2p33Ngc"
+POSTGRES_DB_TREASURY_STATMENT_USER: "treasurymanagement_user"
+POSTGRES_DB_TREASURY_STATMENT_PASS: "Ydbm83DmBhoHODqG"
+
+REDIS_PLATFORM_SENTINEL_HOSTS:
+  - "10.198.13.43:26379"
+  - "10.198.13.44:26379"
+  - "10.198.13.45:26379"
+REDIS_PLATFORM_SENTINEL_MASTER_NAME: "redis-new-master"
+
+REDIS_PLATFORM_SECOND_STANDALONE_HOST: "10.198.13.45"
+REDIS_PLATFORM_SECOND_STANDALONE_PORT: "26379"
+
+SUMMARY_TABLE_PATH: results_full/summary-result.txt
+PROMETHEUS_PORT: 9091
+PROMETHEUS_URL: 10.198.13.77
+PROMETHEUS_PATH: metrics
+PROMETHEUS_JOB: qa
+PROMETHEUS_USERNAME: qa
+PROMETHEUS_PASSWORD: CHANGE_ME

@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{baseUrl}}/admin/bill/0/end-states/flush?start=1609459200000&end=1893456000000"
+method: POST
+order: 8000

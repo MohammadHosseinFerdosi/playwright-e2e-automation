@@ -1,0 +1,7 @@
+$kind: http-request
+description: |-
+  operator: MCI=1 MTN=2 RIGHTEL=3 (default 1).
+  Response: midTerm + finalTerm BillInfoDto.
+url: "{{baseUrl}}/bills/inquiry/{{cellNumber}}?operator=1"
+method: GET
+order: 4000

@@ -1,0 +1,19 @@
+$kind: http-request
+name: PUT admin bills configs/{type} — empty distributions (NEG)
+description: "BillAdminResourceIT: empty distributions → FAILURE / 422."
+url: "{{baseUrl}}/admin/bills/configs/1"
+method: PUT
+body:
+  type: text
+  content: |-
+    {
+      "inquiryDistributions": []
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('empty distributions fails', () => {
+        pm.expect(pm.response.code).to.eql(422);
+        pm.expect(pm.response.json().result.title).to.eql('FAILURE');
+      });
+order: 5000

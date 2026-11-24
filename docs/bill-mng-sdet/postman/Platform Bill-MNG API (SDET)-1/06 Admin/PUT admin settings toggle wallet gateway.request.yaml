@@ -1,0 +1,11 @@
+$kind: http-request
+description: From SettingAdminResourceIT. type=2 UTILITY_BILL. Body shape from GatewayFeatureUpdateRequest — adjust if needed.
+url: "{{baseUrl}}/admin/settings/sdk/pay-gateways/2/toggle-gateway/{{businessId}}"
+method: PUT
+body:
+  type: text
+  content: |-
+    {
+      "active": true
+    }
+order: 10000

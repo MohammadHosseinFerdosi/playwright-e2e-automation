@@ -1,0 +1,12 @@
+$kind: http-request
+name: PUT recommendations/{type}
+description: RecommendationUpdateRequest — align fields with payment/recommendation component from IT.
+url: "{{baseUrl}}/recommendations/{{recommendationType}}"
+method: PUT
+body:
+  type: text
+  content: |-
+    {
+      "id": "{{recommendationId}}"
+    }
+order: 4000

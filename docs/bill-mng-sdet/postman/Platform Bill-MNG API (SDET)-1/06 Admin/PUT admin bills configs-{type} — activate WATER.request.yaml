@@ -1,0 +1,15 @@
+$kind: http-request
+name: PUT admin bills configs/{type} — activate WATER
+description: |-
+  Path {type} = UtilityBillType CODE string: WATER=1 ELECTRICITY=2 GAS=3 TELEPHONE=4 MUNICIPALITY=6 TAX=8 DRIVING_PENALTY=9 MCI=15 MTN=25 RIGHTEL=35.
+  NOT the API BillType ints (WATER=4).
+url: "{{baseUrl}}/admin/bills/configs/{{utilityBillTypeCode}}"
+method: PUT
+body:
+  type: text
+  content: |-
+    {
+      "active": true,
+      "disableMessage": null
+    }
+order: 3000

@@ -1,0 +1,13 @@
+$kind: http-request
+description: |-
+  Poll this after pay. Async: PAID → CONFIRMED → ORDERED.
+  BillStatus JSON ints: PENDING=1 FAILED=2 CANCELED=4 EXPIRED=5 REVERSED=6 CONFIRMED=7 PAID=8 REJECTED=11 ORDERED=12
+url: "{{baseUrl}}/bills/{{trackingCode}}/details"
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      const j = pm.response.json();
+      pm.test('details returned', () => pm.expect(j.billInfo).to.be.ok);
+      console.log('bill status fields:', JSON.stringify(j.billInfo));
+order: 7000

@@ -1,0 +1,27 @@
+# Business balance variables
+DASHBOARD_USERNAME: test-staff-user
+DASHBOARD_PASSWORD: CHANGE_ME
+WALLET_LIST:
+  - spend
+  - refund
+INVALID_BUSINESS_ID: aabbbdddeesss123dsdf-123sd
+INVALID_BUSINESS_ID_STATUS_CODE: 404
+INVALID_BUSINESS_ID_FAILURE_CONTENT:
+  title: BUSINESS_NOT_FOUND
+  status: 8011
+  message: اطلاعات کاربر مورد نظر یافت نشد
+  level: WARN
+INVALID_USER_ID: invalid-user-id
+INVALID_USER_ID_STATUS_CODE: 422
+INVALID_USER_ID_FAILURE_CONTENT:
+  title: INVALID_PARAMETER
+  status: 1054
+  message: اطلاعات ورودی اشتباه است.
+  level: WARN
+INVALID_ZONE: invalid-zonee
+INVALID_ZONE_STATUS_CODE: 422
+INVALID_ZONE_FAILURE_CONTENT:
+  title: INVALID_PARAMETER
+  status: 1054
+  message: اطلاعات ورودی اشتباه است.
+  level: WARN

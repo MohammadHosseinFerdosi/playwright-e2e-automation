@@ -1,0 +1,12 @@
+$kind: collection
+description: |-
+  Needs admin roles: READ_BILL_CONFIGS, UPDATE_BILL_CONFIGS, BILL_SEARCH (user-mng).
+
+  Provider weights (inquiry):
+  - FINNOTECH=0 (فیبونک), GHABZINO=1 (قبضینو), ENOVIN=2
+  - GET configs[].type uses API BillType ints (WATER=4…)
+  - PUT path {type} uses UtilityBillType codes (WATER=1…)
+  - PUT /admin/bills/configs (no type) overwrites ALL types — restore after test
+  - CellNumber inquiry weights come from app properties, NOT this API
+  - Dashboard /history is NOT bill-mng
+order: 6000

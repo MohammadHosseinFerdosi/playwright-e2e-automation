@@ -1,0 +1,13 @@
+$kind: http-request
+name: Health — is sync server running?
+description: |-
+  Start the server first:
+
+  ```bash
+  export JIRA_TOKEN=...
+  export JIRA_ATM=https://jira.demo-platform.net/rest/atm/1.0
+  PYTHONPATH=. python scripts/zephyr_sync_server.py
+  ```
+url: "{{syncBaseUrl}}/health"
+method: GET
+order: 1000

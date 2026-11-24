@@ -1,0 +1,18 @@
+$kind: http-request
+url: "{{baseUrl}}/bills/inquiry"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "billId": "123456",
+      "payId": "123456"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('INVALID_UTILITY_BILL', () => {
+        pm.expect(pm.response.code).to.eql(422);
+        pm.expect(pm.response.json().result.title).to.eql('INVALID_UTILITY_BILL');
+      });
+order: 3000

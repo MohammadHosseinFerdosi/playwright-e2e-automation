@@ -1,0 +1,6 @@
+$kind: http-request
+name: GET promotion banner/{type}
+description: Agent header required. type = TransactionType int (2 = UTILITY_BILL).
+url: "{{baseUrl}}/promotion/banner/{{recommendationType}}"
+method: GET
+order: 6000

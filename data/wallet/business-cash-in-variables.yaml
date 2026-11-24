@@ -1,0 +1,26 @@
+# Business Cash-in Validation Test Data
+WALLET_NAME_DATA: settlement
+ADMIN_USER: test-staff-user
+ADMIN_PASS: testQWE!@#
+## test data for negetive scenario
+### INVALID_BUSINESS_ID
+INVALID_BUSINESS_ID: 4d2df88837554b3cb38ac5784268064
+INVALID_BUSINESS_ID_FAILURE_CONTENT:
+  title: WALLET_USER_NOT_FOUND
+  status: 8011
+  message: اطلاعات کاربری کیف پول کاربر مورد نظر یافت نشد
+  level: WARN
+### Invalid wallet
+INVALID_WALLET_NAME: settlementss
+INVALID_WALLET_NAME_FAILURE_CONTENT:
+  title: WALLET_USER_NOT_FOUND
+  status: 8011
+  message: اطلاعات کاربری کیف پول کاربر مورد نظر یافت نشد
+  level: WARN
+### ZERO_AMOUNT
+INVALID_AMOUNT_FAILURE_CONTENT:
+  title: INVALID_AMOUNT
+  status: 8011
+  message: مبلغ صحیح نمی‌باشد
+  level: WARN
+

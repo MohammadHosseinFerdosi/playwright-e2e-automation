@@ -1,0 +1,21 @@
+$kind: http-request
+description: Creates all `@zephyr` scenarios under the tree. To auto-derive folder from path, disable/remove the X-Zephyr-Folder header.
+url: "{{syncBaseUrl}}/zephyr/sync"
+method: POST
+headers:
+  - key: X-Mode
+    value: create
+  - key: X-Features
+    value: "{{featuresRoot}}"
+    description: Directory — recursive *.feature
+  - key: X-Zephyr-Folder
+    value: "{{zephyrFolder}}"
+    description: Optional if you want one folder for all; omit header to auto-derive per file
+  - key: X-Git-Branch
+    value: "{{gitBranch}}"
+  - key: X-Dry-Run
+    value: "false"
+body:
+  type: text
+  content: ""
+order: 3000

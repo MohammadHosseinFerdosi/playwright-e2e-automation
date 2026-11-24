@@ -1,0 +1,11 @@
+$kind: http-request
+description: IT fixture ticket → WALLET_GW_CREDIT_NOT_ENOUGH (with WireMock). Against real env use a real underfunded ticket.
+url: "{{baseUrl}}/bills/pay/wallet"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "ticket": "88fsfs4k5e4953sfs453uir444483"
+    }
+order: 7000

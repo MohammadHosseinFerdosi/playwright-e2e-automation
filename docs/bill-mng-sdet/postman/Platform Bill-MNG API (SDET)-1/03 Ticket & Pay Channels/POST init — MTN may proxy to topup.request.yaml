@@ -1,0 +1,13 @@
+$kind: http-request
+description: When mtn.bill.charge.payment.enabled=true, MtnBillTicketDelegatorAspect may route to topup-mng /top-ups/init.
+url: "{{baseUrl}}/bills/init"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "billId": "0247506993356",
+      "payId": "61601150",
+      "callbackUrl": "{{callbackUrl}}"
+    }
+order: 3000

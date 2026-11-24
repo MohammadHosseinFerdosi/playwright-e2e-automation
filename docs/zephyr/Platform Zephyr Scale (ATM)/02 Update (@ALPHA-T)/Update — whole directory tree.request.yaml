@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{syncBaseUrl}}/zephyr/sync"
+method: POST
+headers:
+  X-Mode: update
+  X-Features: "{{featuresRoot}}"
+  X-Zephyr-Folder: "{{zephyrFolder}}"
+  X-Dry-Run: "false"
+body:
+  type: text
+  content: ""
+order: 3000

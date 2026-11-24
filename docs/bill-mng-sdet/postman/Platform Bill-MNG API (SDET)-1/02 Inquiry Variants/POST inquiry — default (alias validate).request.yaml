@@ -1,0 +1,12 @@
+$kind: http-request
+description: Deprecated alias of /bills/inquiry — same contract.
+url: "{{baseUrl}}/bills/validate"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "billId": "{{billId}}",
+      "payId": "{{payId}}"
+    }
+order: 1000

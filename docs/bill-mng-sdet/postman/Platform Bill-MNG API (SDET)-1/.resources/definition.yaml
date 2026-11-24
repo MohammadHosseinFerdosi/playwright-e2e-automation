@@ -1,0 +1,77 @@
+$kind: collection
+name: Platform Bill-MNG API (SDET)
+description: |-
+  Complete Postman collection for Platform bill-mng microservice.
+
+  Base path: {{baseUrl}} = http://{host}:7074/platform/api
+
+  Auth model: API Gateway injects identity headers. Against bill-mng directly (or trusted gateway), set User-Id / Agent / Platform-Version / Client-Id.
+
+  Source: bill-mng repo IT suite + *Resource.java + bill-mng-spec DTOs.
+
+  Import with environment: Bill-MNG-Local.postman_environment.json
+variables:
+  baseUrl: http://localhost:7074/platform/api
+  userId: 2d04d8eb-e6fa-4b12-8dae-6d15b4d1fda0
+  agent: ANDROID
+  version: 2019-09-30
+  clientId: platform-client-id
+  xff: 192.168.1.1
+  ticket: ""
+  trackingCode: ""
+scripts:
+  - type: http:beforeRequest
+    code: |-
+      // Platform gateway identity headers — mirrors AbstractResourceIT.getHttpHeaders()
+      pm.request.headers.upsert({ key: 'User-Id', value: pm.environment.get('userId') || pm.collectionVariables.get('userId') });
+      pm.request.headers.upsert({ key: 'Agent', value: pm.environment.get('agent') || pm.collectionVariables.get('agent') });
+      pm.request.headers.upsert({ key: 'Platform-Version', value: pm.environment.get('version') || pm.collectionVariables.get('version') });
+      pm.request.headers.upsert({ key: 'Client-Id', value: pm.environment.get('clientId') || pm.collectionVariables.get('clientId') });
+      pm.request.headers.upsert({ key: 'X-Forwarded-For', value: pm.environment.get('xff') || pm.collectionVariables.get('xff') });
+      pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });
+      pm.request.headers.upsert({ key: 'Accept', value: 'application/json' });
+
+      // Optional: if hitting real gateway that needs Bearer token
+      const token = pm.environment.get('authToken');
+      if (token) {
+        pm.request.headers.upsert({ key: 'Authorization', value: 'Bearer ' + token });
+      }
+    language: text/javascript
+  - type: http:afterResponse
+    code: |-
+      pm.test('HTTP status is 2xx or 422 (business error)', function () {
+        pm.expect(pm.response.code).to.be.oneOf([200, 201, 204, 422]);
+      });
+
+      if (pm.response.headers.get('Content-Type') && pm.response.headers.get('Content-Type').includes('json')) {
+        try {
+          const json = pm.response.json();
+          if (json && json.result) {
+            console.log('result.title=', json.result.title, 'status=', json.result.status, 'message=', json.result.message);
+            pm.environment.set('lastResultTitle', json.result.title || '');
+            pm.environment.set('lastResultStatus', String(json.result.status != null ? json.result.status : ''));
+          }
+          // Capture ticket from payment initiate / pay responses
+          if (json.ticket) {
+            pm.environment.set('ticket', json.ticket);
+            pm.collectionVariables.set('ticket', json.ticket);
+            console.log('saved ticket=', json.ticket);
+          }
+          // Capture trackingCode from billInfo / billInfos / pending
+          const info = json.billInfo || (json.billInfos && json.billInfos[0]) || null;
+          if (info && info.trackingCode) {
+            pm.environment.set('trackingCode', info.trackingCode);
+            pm.collectionVariables.set('trackingCode', info.trackingCode);
+            console.log('saved trackingCode=', info.trackingCode);
+          }
+          if (json.trackingCode) {
+            pm.environment.set('trackingCode', json.trackingCode);
+            pm.collectionVariables.set('trackingCode', json.trackingCode);
+          }
+        } catch (e) { console.warn('response parse skip', e); }
+      }
+    language: text/javascript
+auth:
+  - id: ""
+    type: noauth
+    name: No Auth

@@ -1,0 +1,44 @@
+name: Bill-MNG Local / Staging
+values:
+  - key: baseUrl
+    value: 'http://localhost:7074/platform/api'
+  - key: userId
+    value: 2d04d8eb-e6fa-4b12-8dae-6d15b4d1fda0
+  - key: debtorUserId
+    value: 0beca23f-3bc5-4b49-adae-d4e47c1b720b
+  - key: agent
+    value: ANDROID
+  - key: version
+    value: '2019-09-30'
+  - key: clientId
+    value: platform-client-id
+  - key: xff
+    value: 192.168.1.1
+  - key: billId
+    value: '2664034900143'
+  - key: payId
+    value: '51450157'
+  - key: callbackUrl
+    value: 'https://example.com/web/test'
+  - key: cellNumber
+    value: 09177171472
+  - key: operator
+    value: '1'
+  - key: ticket
+    value: ''
+  - key: trackingCode
+    value: ''
+  - key: inquiryId
+    value: '3236047426'
+  - key: billTypeApi
+    value: '6'
+  - key: utilityBillTypeCode
+    value: '1'
+  - key: recommendationType
+    value: '2'
+  - key: recommendationId
+    value: ''
+  - key: authToken
+    value: ''
+  - key: businessId
+    value: platform

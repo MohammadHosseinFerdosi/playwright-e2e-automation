@@ -1,0 +1,13 @@
+$kind: http-request
+description: Declared type does not match billId-derived type.
+url: "{{baseUrl}}/bills/inquiry"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "billId": "9635001104126",
+      "payId": "176470327",
+      "type": 4
+    }
+order: 4000

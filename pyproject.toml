@@ -1,0 +1,199 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "platform-pytest-automation"
+version = "0.1.0"
+description = "Platform UAT automation — pytest + pytest-bdd + httpx + Playwright (migration from Robot Framework)"
+requires-python = ">=3.10,<3.12"
+
+dependencies = [
+    "pytest>=8.0",
+    "pytest-bdd>=7.0",
+    "pytest-xdist>=3.5",
+    "httpx>=0.27",
+    "pydantic>=2.5",
+    "pydantic-settings>=2.2",
+    "pyyaml>=6.0",
+    "playwright>=1.44",
+    "faker>=25.0",
+    "allure-pytest>=2.13",
+    "allure-pytest-bdd>=2.13",
+    "mysql-connector-python==8.3.0",
+    "redis==5.0.3",
+    "pymongo==4.11.1",
+    "psycopg2-binary==2.9.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.6",
+    "pre-commit>=3.7",
+    "basedpyright>=1.18",
+]
+# Pytest config lives here (tests/pytest.ini was retired) so a bare `pytest`
+# from repo root picks it up without `-c tests/pytest.ini`. Any new marker
+# must be registered in `markers` below.
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+bdd_features_base_dir = "tests/bdd/features"
+python_files = ["test_*.py", "*_test.py", "*_steps.py"]
+pythonpath = ["."]
+# allure-pytest + allure-pytest-bdd both register --alluredir — keep BDD plugin only.
+addopts = ["--strict-markers", "-ra", "-p", "no:allure_pytest", "--alluredir=allure-results", "--clean-alluredir"]
+# Every AssertionReport / assert_* call (tests/services/assert_report.py) logs a
+# PASS/FAIL/ERROR line through the stdlib `logging` module — captured here to a
+# file so a run has a plain-text trail independent of Allure's HTML. Console
+# output stays quiet by default (log_cli off); opt in locally with
+# `--log-cli-level=INFO` when you want to watch it live.
+log_file = "allure-results/pytest.log"
+log_file_level = "INFO"
+log_file_format = "%(asctime)s %(levelname)-8s %(name)s: %(message)s"
+log_file_date_format = "%Y-%m-%d %H:%M:%S"
+markers = [
+    "high: severity high — business-critical",
+    "medium: severity medium",
+    "low: severity low",
+    "api: API test (httpx, no browser)",
+    "e2e: UI end-to-end test (Playwright)",
+    "smoke: smoke suite — deploy gate",
+    "regression: regression suite — full nightly coverage",
+    "platform: domain — foundation/pipeline smoke checks, not a real business domain",
+    "payment: domain — payment gateway (health check, transactions, refunds)",
+    "wallet: domain — customer/business wallets (balance, charge, spend)",
+    "bill: domain — utility bill coordinator (inquiry, init, pay)",
+    "dashboard: domain — Platform management console (uatdsh)",
+    "app: domain — customer mobile app (app/*)",
+    "tci: bill provider — TCI / Mokhaberat landline (features under bill/tci/)",
+    "positive: behavior — expected-success path",
+    "negative: behavior — expected-failure / rejection path",
+    "zephyr: process — create in Zephyr Scale; script replaces this with @ALPHA-T####",
+    "zephyr_key: process — Zephyr test-case key carried as mark arg (ALPHA-T####)",
+    "wallet_transfer: feature — customer wallet transfer (user_wallet_transfer.feature)",
+    "wallet_balance: feature — customer aggregated balance (users_total_balance.feature)",
+    "bill_validation: feature — utility bill identifier / amount validation",
+    "bill_config: feature — utility bill configuration (GET /bills/config)",
+    "bill_tci_validate: feature — Platform landline validate (bill/tci/tci_inquiry.feature)",
+    "bill_tci_inquiry: feature — alias retained for older selects; prefer bill_tci_validate",
+    "bill_tci_provider: feature — direct TCI provider inquiry (bill/tci/tci_provider_inquiry.feature)",
+    "bill_tci_ui: feature — Platform app UI landline inquiry (bill/tci/tci_landline_ui.feature)",
+    "payment_health_check: feature — payment gateway health check",
+    "payment_refund_inquiry: feature — purchase refund inquiry",
+    "platform_create_business: feature — business creation smoke",
+    "platform_ui_hub: feature — app hub after API session inject (platform/ui_hub_smoke.feature)",
+    "dashboard_bill_inquiry_weights: feature — dashboard Super App bill inquiry provider weights",
+    "dashboard_bill_admin_weights_api: feature — admin GET/PUT /admin/bills/configs weight validation",
+    "dashboard_topup_ipkg_provider_weights: feature — dashboard Super App topup/IPKG provider weights",
+    "wealth: domain — customer wealth/investment products (buy/sell silver, gold, …)",
+    "wealth_silver_trade: feature — customer buys and sells silver from the wealth product (wealth/silver_trade_ui.feature)",
+    "kyc: domain — KYC / digital signature / liveness / promissory note / Shahkar / postal-code / registration inquiry",
+    "kyc_digital_signature: feature — native digital signature after liveness (kyc/digital_signature.feature)",
+    "kyc_promissory: slice — all promissory note features under kyc/",
+    "kyc_promissory_note: feature — promissory note core smoke (kyc/promissory_note.feature)",
+    "kyc_promissory_lifecycle: feature — promissory lifecycle (kyc/promissory_note_lifecycle.feature)",
+    "kyc_promissory_renew: feature — promissory Kuknos renew (kyc/promissory_note_renew.feature)",
+    "kyc_promissory_negative: feature — promissory negatives (kyc/promissory_note_negative.feature)",
+    "kyc_promissory_mass: feature — promissory mass-assignment (kyc/promissory_note_mass.feature)",
+    "kyc_promissory_concurrency: feature — promissory concurrency (kyc/promissory_note_concurrency.feature)",
+    "kyc_promissory_admin: feature — promissory admin (kyc/promissory_note_admin.feature)",
+    "kyc_shahkar_inquiry: feature — Shahkar cell-number inquiry (kyc/shahkar_inquiry.feature)",
+    "kyc_postal_code: feature — postal-code address inquiry (kyc/postal_code.feature)",
+    "kyc_registration_inquiry: feature — identity registration inquiry (kyc/registration_inquiry.feature)",
+    "app_login_onboarding: feature — customer login onboarding chrome (app/login_onboarding.feature)",
+    "debit: domain — bank transfer / debit rails",
+    "debit_gateway_common: feature — shared routing weights (debit/gateway_common.feature)",
+    "debit_mellat_gateway: feature — Mellat INTERNAL gateway (debit/mellat_gateway.feature)",
+    "debit_mellat_ach: feature — Mellat ACH PAYA (debit/mellat_ach.feature)",
+    "debit_mellat_dsh: feature — Mellat DSH (debit/mellat_dsh.feature)",
+    "debit_manual_gateway: feature — Manual portal ACH gateway (debit/manual_gateway.feature)",
+    "debit_manual_dsh: feature — Manual portal DSH (debit/manual_dsh.feature)",
+    "debit_melli_direct: feature — Melli TREASURY direct-route (debit/melli_direct_route.feature)",
+    "debit_mellat_direct: feature — Mellat TREASURY direct-route (debit/mellat_direct_route.feature)",
+    "debit_mellat_rtgs: feature — Mellat RTGS/SATNA (debit/mellat_rtgs.feature)",
+    "debit_parsian_ach: feature — Parsian ACH PAYA (debit/parsian_ach.feature)",
+    "debit_shahin_saderat_internal: feature — ft shahin INTERNAL (debit/shahin_saderat_internal.feature)",
+    "debit_shahin_saderat_ach: feature — ft shahin PAYA (debit/shahin_saderat_ach.feature)",
+    "debit_shahin_saderat_rtgs: feature — ft shahin SATNA (debit/shahin_saderat_rtgs.feature)",
+    "debit_shahin_saderat_statements: feature — ft shahin statements (debit/shahin_saderat_statements.feature)",
+    "debit_shahin_saderat_direct: feature — ft shahin TREASURY direct-route (debit/shahin_saderat_direct.feature)",
+    "debit_nemo_predict: feature — Nemo cash-out fee predict (debit/nemo_predict.feature)",
+    "debit_nemo_cash_out: feature — Nemo IBAN cash-out register (debit/nemo_cash_out.feature)",
+    "debit_nemo_gateway: feature — Nemo app-gateway route prediction (debit/nemo_gateway.feature)",
+    "debit_nemo_e2e: feature — Nemo cash-out live journeys (debit/nemo_e2e.feature)",
+    "internet: domain — customer internet/top-up (mobile operator selection, bundle purchase)",
+    "internet_operators: feature — customer top-up operator list (super_app/internet/operators.feature)",
+    "internet_bundles: feature — customer internet bundle catalog (super_app/internet/bundles.feature)",
+    "gl: domain — general ledger (merchant detailed/Rahkaran codes, incoming transactions)",
+    "gl_merchants_rahkaran_codes: feature — GL merchants with Rahkaran codes (gl/detailed_code_management/merchants_with_rahkaran_codes.feature)",
+    "gl_merchants_without_rahkaran_codes: feature — GL merchants without Rahkaran codes, incl. suspend flow (gl/detailed_code_management/merchants_without_rahkaran_codes.feature)",
+    "gl_incoming_transactions: feature — GL incoming manual financial transactions, Transaction/Voucher/Article DB checks (gl/incoming_transactions/financial_transactions.feature)",
+    # Risk-area axis (AGENTS.md "Domain Risk Areas") — orthogonal to story/type/suite/
+    # domain/feature/severity; apply when a scenario specifically targets this risk.
+    "idempotency: risk area — duplicate request/submission must not duplicate side effects",
+    "pii: risk area — phone/NID/IBAN/card data must stay masked in logs and reports",
+    "aml: risk area — anti-money-laundering amount threshold enforcement",
+    "rounding: risk area — currency rounding / precision boundaries",
+    "concurrency: risk area — simultaneous requests on shared state (wallet/balance/note)",
+    "session_timeout: risk area — expired/invalid session must degrade gracefully (401, not 500)",
+]
+# Test suite is imported via PYTHONPATH=.; do not auto-discover data/config/secrets as packages.
+[tool.setuptools]
+packages = []
+
+# Typecheck gate: `make typecheck` / pre-commit.
+# basic + errors-only catches override mismatches without warning noise.
+# Do not also define [tool.pyright] — basedpyright rejects both sections in one pyproject.
+[tool.basedpyright]
+include = ["scripts", "tests"]
+exclude = [".venv", "**/__pycache__", "docs", "allure-results", "allure-report", "allure-dashboard", "build"]
+# Match requires-python floor + ruff target-version (py310), not the 3.11 ceiling.
+pythonVersion = "3.10"
+typeCheckingMode = "basic"
+extraPaths = ["scripts", "."]
+# CLI scripts inject scripts/ onto sys.path on purpose (not importable packages).
+reportImplicitRelativeImport = "none"
+
+[tool.ruff]
+line-length = 100
+# Match requires-python's floor (3.10), not the ceiling — py311 here would make
+# pyupgrade (UP) suggest 3.11-only features (enum.StrEnum, datetime.UTC) as if
+# they were safe everywhere, silently breaking Python 3.10 support.
+target-version = "py310"
+extend-exclude = [".venv", "build", "allure-results", "allure-dashboard", ".tmp"]
+
+[tool.ruff.lint]
+select = [
+    "E",       # pycodestyle errors
+    "F",       # pyflakes
+    "I",       # isort (import sorting)
+    "UP",      # pyupgrade
+    "B",       # flake8-bugbear
+    "ANN",     # flake8-annotations — type hints on every function
+    "D",       # pydocstyle — docstring presence + Google convention
+    "C901",    # mccabe complexity
+    "PLR0912", # too many branches
+    "PLR0915", # too many statements
+]
+ignore = [
+    "E501",   # line length handled by formatter, not a hard error
+    "ANN401", # Any is legitimate at JSON/envelope boundaries (assert_report, {status_code, body})
+    "D104",   # package __init__ docstrings add no information
+    "D105",   # magic methods are self-describing
+    "D107",   # __init__ documented at class level
+    "D400",   # trailing-period pedantry
+    "D401",   # imperative-mood pedantry
+    "D415",   # terminal-punctuation pedantry
+]
+mccabe.max-complexity = 10
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/bdd/steps/*.py" = ["F401", "F811"]  # pytest-bdd step re-registration patterns
+"tests/unit/*.py" = ["D103"]               # test function names are the documentation
+"docs/**/*.py" = ["D", "ANN", "C901", "PLR0912", "PLR0915"]  # presentation generators, not framework code
+
+[tool.ruff.lint.isort]
+known-first-party = ["tests"]

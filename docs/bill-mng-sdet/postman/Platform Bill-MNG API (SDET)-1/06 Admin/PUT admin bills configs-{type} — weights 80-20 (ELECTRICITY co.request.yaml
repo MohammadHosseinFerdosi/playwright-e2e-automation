@@ -1,0 +1,23 @@
+$kind: http-request
+name: PUT admin bills configs/{type} — weights 80/20 (ELECTRICITY code 2)
+description: |-
+  Matches admin UI sample: Ghabzino 80% + Finnotech 20% for ELECTRICITY.
+  Path uses UtilityBillType code "2" (not API type 5).
+  SAFE PRACTICE: GET first, save old weights, restore after test.
+url: "{{baseUrl}}/admin/bills/configs/2"
+method: PUT
+body:
+  type: text
+  content: |-
+    {
+      "inquiryDistributions": [
+        { "provider": 1, "weight": 80.0 },
+        { "provider": 0, "weight": 20.0 }
+      ]
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const j = pm.response.json();
+      pm.test('SUCCESS', () => pm.expect(j.result.title).to.eql('SUCCESS'));
+order: 2000

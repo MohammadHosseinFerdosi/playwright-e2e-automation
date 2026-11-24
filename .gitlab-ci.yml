@@ -1,0 +1,217 @@
+# Platform pytest CI — API/UI BDD suite (no Robot).
+# Network: Platform OCI + PyPI mirrors only (runners cannot reach Docker Hub / deb.debian.org).
+
+stages:
+  - validate
+  - test
+  - report
+
+variables:
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  PYTHONUNBUFFERED: "1"
+  PYTHON_IMAGE: "example.com/library/python:3.11-slim"
+  PIP_INDEX_URL: "https://example.com/simple"
+  PLAYWRIGHT_DOWNLOAD_HOST: "https://example.com/raw-playwright-proxy/"
+  # Optional: set in CI/CD variables when GitLab Pages is enabled (see README Reporting).
+  # ENABLE_GITLAB_PAGES: "true"
+  # Optional: Platform-mirrored image that includes the Allure CLI (for HTML generate + Pages).
+  # ALLURE_IMAGE: "example.com/<org>/allure:<tag>"
+
+# ---------------------------------------------------------------------------
+# Validate
+# ---------------------------------------------------------------------------
+
+# Branch naming (no team whitelist — Jira UPPERCASE vs team lowercase by shape):
+#   feat|fix|chore|hotfix|docs / JIRA-123-slug
+#   chore|hotfix|docs / team-slug
+Branch name convention:
+  stage: validate
+  image: $PYTHON_IMAGE
+  script:
+    - echo "Branch name convention check starting"
+    - python3 scripts/check_branch_name.py
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+
+# Same gate as the local pre-push checklist: ruff + thin-step contract + basedpyright.
+# Invoke tools directly — python:3.11-slim has no `make`, and runners cannot apt-get from
+# deb.debian.org (see file header). Keep in sync with Makefile `lint` / `typecheck`.
+Lint and typecheck:
+  stage: validate
+  image: $PYTHON_IMAGE
+  before_script:
+    - pip install -e ".[dev]"
+  script:
+    - ruff check .
+    - python3 scripts/check_step_style.py
+    - basedpyright --level error scripts tests
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+
+# ---------------------------------------------------------------------------
+# Test bases
+# ---------------------------------------------------------------------------
+
+.pytest_api_base:
+  image: $PYTHON_IMAGE
+  before_script:
+    - pip install .
+  artifacts:
+    when: always
+    paths:
+      - report.xml
+      - allure-results/
+    reports:
+      junit: report.xml
+    expire_in: 30 days
+
+.pytest_ui_base:
+  image: $PYTHON_IMAGE
+  before_script:
+    - pip install .
+    - playwright install chromium
+  artifacts:
+    when: always
+    paths:
+      - report.xml
+      - allure-results/
+    reports:
+      junit: report.xml
+    expire_in: 30 days
+
+# ---------------------------------------------------------------------------
+# Test jobs
+# ---------------------------------------------------------------------------
+
+# Fast gate: API smoke — JUnit (GitLab Tests tab) + Allure raw results (artifacts)
+Pytest Smoke API:
+  extends: .pytest_api_base
+  stage: test
+  script:
+    - |
+      PYTHONPATH=. pytest -m "smoke and api" -v \
+        --junitxml=report.xml
+      exit_code=$?
+      if [ $exit_code -eq 5 ]; then
+        echo "No tests collected — treating as pass until smoke markers land."
+        exit 0
+      fi
+      exit $exit_code
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+Pytest Regression API:
+  extends: .pytest_api_base
+  stage: test
+  script:
+    - |
+      PYTHONPATH=. pytest -m "api and regression" -v \
+        --junitxml=report.xml
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+      allow_failure: true
+
+Pytest UI Smoke:
+  extends: .pytest_ui_base
+  stage: test
+  script:
+    - |
+      PYTHONPATH=. pytest -m "e2e and smoke" -v \
+        --junitxml=report.xml
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+      allow_failure: true
+
+# ---------------------------------------------------------------------------
+# Report — always keep raw Allure; HTML/Pages when ALLURE_IMAGE + Pages ready
+# ---------------------------------------------------------------------------
+
+# Packages raw allure-results for download (works without Pages / Allure TestOps).
+Allure Results:
+  stage: report
+  image: $PYTHON_IMAGE
+  when: always
+  needs:
+    - job: Pytest Smoke API
+      artifacts: true
+      optional: true
+  script:
+    - |
+      if [ ! -d allure-results ] || [ -z "$(ls -A allure-results 2>/dev/null)" ]; then
+        echo "No allure-results/ produced by upstream jobs."
+        mkdir -p allure-results
+        echo "missing" > allure-results/.empty
+        exit 0
+      fi
+      echo "Allure raw results ready ($(find allure-results -type f | wc -l | tr -d ' ') files)."
+      echo "Browse this job's artifacts → allure-results/"
+      echo "HTML report: see job Allure HTML Report (needs CI variable ALLURE_IMAGE)."
+      # pipefail + SIGPIPE: `head` closes after 20 lines and `ls` would fail the job.
+      ls allure-results | head -20 || true
+  artifacts:
+    when: always
+    paths:
+      - allure-results/
+    expire_in: 30 days
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# Static Allure HTML as a pipeline artifact (open allure-report/index.html after download).
+# Requires CI/CD variable ALLURE_IMAGE = Platform OCI image with the `allure` CLI.
+Allure HTML Report:
+  stage: report
+  image: $ALLURE_IMAGE
+  when: always
+  needs:
+    - job: Allure Results
+      artifacts: true
+  script:
+    - |
+      if [ ! -d allure-results ] || [ -z "$(ls -A allure-results 2>/dev/null)" ]; then
+        echo "No allure-results/ to generate from."
+        exit 0
+      fi
+      if [ -f allure-results/.empty ]; then
+        echo "Upstream left a placeholder — skipping HTML generate."
+        exit 0
+      fi
+      ALLURE_NO_ANALYTICS=true allure generate allure-results --clean -o allure-report
+      echo "Allure HTML ready — browse artifacts → allure-report/index.html"
+  artifacts:
+    when: always
+    paths:
+      - allure-report/
+    expire_in: 30 days
+  rules:
+    - if: $ALLURE_IMAGE && ($CI_PIPELINE_SOURCE == "merge_request_event" || $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH)
+    - when: never
+
+# Optional HTML + GitLab Pages. Enable when:
+#   1) Admin enables Pages, and
+#   2) CI/CD variable ENABLE_GITLAB_PAGES=true, and
+#   3) CI/CD variable ALLURE_IMAGE points at a Platform OCI image with `allure` CLI.
+pages:
+  stage: report
+  image: $ALLURE_IMAGE
+  needs:
+    - job: Pytest Smoke API
+      artifacts: true
+  script:
+    - allure generate allure-results --clean -o public
+    - echo "Pages site will publish ./public (Allure HTML)"
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  rules:
+    - if: $ENABLE_GITLAB_PAGES == "true" && $ALLURE_IMAGE
+      when: on_success
+    - when: never

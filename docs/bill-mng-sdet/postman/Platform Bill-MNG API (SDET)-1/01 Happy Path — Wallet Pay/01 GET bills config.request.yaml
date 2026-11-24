@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Landing config: enabled bill types for Agent + Platform-Version.
+  Optional query: isMobileBill
+url: "{{baseUrl}}/bills/config"
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('SUCCESS', () => {
+        const j = pm.response.json();
+        pm.expect(j.result.title).to.eql('SUCCESS');
+        pm.expect(j.configs).to.be.an('array');
+      });
+order: 1000

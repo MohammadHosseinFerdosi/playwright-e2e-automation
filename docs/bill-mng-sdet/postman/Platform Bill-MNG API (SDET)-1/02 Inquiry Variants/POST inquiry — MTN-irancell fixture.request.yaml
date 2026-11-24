@@ -1,0 +1,12 @@
+$kind: http-request
+name: POST inquiry — MTN/irancell fixture
+url: "{{baseUrl}}/bills/inquiry"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "billId": "2498463593553",
+      "payId": "6980594"
+    }
+order: 9000

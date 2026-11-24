@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{baseUrl}}/bills/pay/wallet"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "ticket": "4d8ab90e5ed949a0a035315704956049560493"
+    }
+order: 8000

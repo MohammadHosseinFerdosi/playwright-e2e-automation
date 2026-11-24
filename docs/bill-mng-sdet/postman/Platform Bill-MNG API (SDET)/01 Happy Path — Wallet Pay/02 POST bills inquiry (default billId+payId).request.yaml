@@ -1,0 +1,25 @@
+$kind: http-request
+description: |-
+  Default inquiry (payMethod omitted → DEFAULT). billId & payId length 6–13.
+  Response: billInfos[].amount, billId, payId, billType, termType.
+url: "{{baseUrl}}/bills/inquiry"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "billId": "{{billId}}",
+      "payId": "{{payId}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const j = pm.response.json();
+      pm.test('inquiry SUCCESS', () => pm.expect(j.result.title).to.eql('SUCCESS'));
+      pm.test('has billInfos', () => pm.expect(j.billInfos.length).to.be.above(0));
+      if (j.billInfos && j.billInfos[0]) {
+        pm.environment.set('billId', j.billInfos[0].billId);
+        pm.environment.set('payId', j.billInfos[0].payId);
+        pm.environment.set('inquiryAmount', String(j.billInfos[0].amount));
+      }
+order: 2000

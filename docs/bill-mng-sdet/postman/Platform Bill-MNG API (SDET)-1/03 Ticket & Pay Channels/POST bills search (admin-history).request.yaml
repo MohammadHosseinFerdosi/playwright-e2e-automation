@@ -1,0 +1,13 @@
+$kind: http-request
+name: POST bills search (admin/history)
+description: Dynamic search from payment/search component. Needs BILL_SEARCH permission via gateway/user-mng. Adjust body to your search schema.
+url: "{{baseUrl}}/bills/search"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "page": 0,
+      "size": 20
+    }
+order: 7000

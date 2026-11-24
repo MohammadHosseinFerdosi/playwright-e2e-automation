@@ -1,0 +1,24 @@
+USER_CELL_NUMBER: 09124081147
+
+Source_card:
+  card_num: 5022 2913 1875 7414
+  bank_name: پاسارگاد
+  owner_name: مریم پاکسرشت
+  expire_year: "1406"
+  expire_month: "10"
+  cvv2: "135"
+  static_pass: "00000"
+
+Invalid_Source_card:
+  card_num: 8898 8854 4454 8888
+  error_message:  لطفا یک شماره کارت معتبر وارد نمایید
+
+Incorrect_Source_card:
+  card_num: 5022 2910 3806 5888
+
+Target_Card:
+  card_num: 5029 3810 2938 1597
+  bank_name: دی
+  owner_name: آریا صراف زاده
+
+Transfer_Amount: 20000

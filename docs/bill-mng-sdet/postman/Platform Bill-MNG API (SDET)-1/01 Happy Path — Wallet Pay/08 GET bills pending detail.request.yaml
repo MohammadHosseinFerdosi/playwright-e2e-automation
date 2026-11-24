@@ -1,0 +1,7 @@
+$kind: http-request
+description: Pending receipt UI payload. User-Id MUST equal bill.debtor.userId or FAILURE.
+url: "{{baseUrl}}/bills/pending/{{trackingCode}}"
+method: GET
+headers:
+  User-Id: "{{debtorUserId}}"
+order: 8000

@@ -1,0 +1,14 @@
+$kind: http-request
+description: Updates only `{{zephyrKey}}`.
+url: "{{syncBaseUrl}}/zephyr/sync"
+method: POST
+headers:
+  X-Mode: update
+  X-Feature: "{{featurePath}}"
+  X-Key: "{{zephyrKey}}"
+  X-Zephyr-Folder: "{{zephyrFolder}}"
+  X-Dry-Run: "false"
+body:
+  type: text
+  content: ""
+order: 2000

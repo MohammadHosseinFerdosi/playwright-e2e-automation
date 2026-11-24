@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}/bills/init"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "billId": "2664034900143",
+      "payId": "51450157",
+      "callbackUrl": "{{callbackUrl}}"
+    }
+order: 1000

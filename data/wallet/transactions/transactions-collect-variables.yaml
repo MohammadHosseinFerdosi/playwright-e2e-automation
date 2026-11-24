@@ -1,0 +1,45 @@
+USER_PHONE_NUMBER_PREFIX: 0945
+DASHBOARD_USERNAME: test-staff-user
+DASHBOARD_PASSWORD: CHANGE_ME
+B_WALLET_FOR_PAYOUT: spend
+B_WALLET_FOR_COLLECT: reward
+USER_DEFAULT_WALLET: default
+ZERO_AMOUNT_FAILURE_CONTENT:
+  title: "WALLET_GW_CREDIT_NOT_ENOUGH"
+  status: 8151
+  message: "موجودی کافی نیست."
+  level: "WARN"
+DEFAULT_WALLET_FAILURE_CONTENT:
+  title: "PSPPROXY_INVALID_REQUEST_TIME"
+  status: 6119
+  message: 'زمان درخواست نامعتبر است'
+  level: "WARN"
+UNEXPIRED_FAILURE_CONTENT:
+  title: "PSPPROXY_INVALID_REQUEST_TIME"
+  status: 6119
+  message: 'زمان درخواست نامعتبر است'
+  level: "WARN"
+INVALID_USER_WALLET_NAME: invalid-wallets
+INVALID_USER_WALLET_FAILURE_CONTENT:
+  title: "WALLET_USER_NOT_FOUND"
+  status: 8011
+  message: 'اطلاعات کاربری کیف پول کاربر مورد نظر یافت نشد'
+  level: "WARN"
+INVALID_USER_ID: invalid-user-id
+INVALID_USER_FAILURE_CONTENT:
+  title: "WALLET_USER_NOT_FOUND"
+  status: 8011
+  message: 'اطلاعات کاربری کیف پول کاربر مورد نظر یافت نشد'
+  level: "WARN"
+INVALID_BUSINESS_WALLET: spendss
+INVALID_BUSINESS_WALLET_FAILURE_CONTENT:
+  title: "WALLET_USER_NOT_FOUND"
+  status: 8011
+  message: 'اطلاعات کاربری کیف پول کاربر مورد نظر یافت نشد'
+  level: "WARN"
+INVALID_BUSINESS_ID: invalid-business-id
+INVALID_BUSINESS_ID_FAILURE_CONTENT:
+  title: "WALLET_USER_NOT_FOUND"
+  status: 8011
+  message: 'اطلاعات کاربری کیف پول کاربر مورد نظر یافت نشد'
+  level: "WARN"

@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{baseUrl}}/bills/pay/dpg"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "ticket": "{{ticket}}"
+    }
+order: 5000

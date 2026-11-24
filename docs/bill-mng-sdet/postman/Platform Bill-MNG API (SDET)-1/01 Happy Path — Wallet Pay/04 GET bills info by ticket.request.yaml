@@ -1,0 +1,5 @@
+$kind: http-request
+description: Ticket info after init.
+url: "{{baseUrl}}/bills/info/{{ticket}}"
+method: GET
+order: 4000

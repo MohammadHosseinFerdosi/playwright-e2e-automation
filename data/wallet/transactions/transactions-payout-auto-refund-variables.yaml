@@ -1,0 +1,9 @@
+DASHBOARD_USERNAME: test-staff-user
+DASHBOARD_PASSWORD: CHANGE_ME
+USER_CELL_NUMBER_PREFIX: 0945
+USER_DEFAULT_WALLET: default
+REFUND_TO_EXPIRED_WALLET_FAILURE_CONTENT:
+  title: 'WALLET_EXPIRED'
+  status: 8029
+  message: 'مهلت زمانی استفاده از کیف پول به اتمام رسیده است'
+  level: 'WARN'

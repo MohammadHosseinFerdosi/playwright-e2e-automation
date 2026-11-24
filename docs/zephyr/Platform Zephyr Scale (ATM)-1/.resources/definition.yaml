@@ -1,0 +1,19 @@
+$kind: collection
+name: Platform Zephyr Scale (ATM)
+description: |-
+  Header-driven Zephyr BDD sync for Platform.
+
+  1) Export JIRA_TOKEN + JIRA_ATM in a terminal
+  2) Start: PYTHONPATH=. python scripts/zephyr_sync_server.py
+  3) Select environment Platform Zephyr Local (or set collection vars)
+  4) Send requests — config is in Headers, body stays empty.
+
+  Full guide: docs/zephyr/Zephyr-Scale-Complete-Guide.pdf
+variables:
+  syncBaseUrl: http://127.0.0.1:8765
+  jiraAtm: https://jira.demo-platform.net/rest/atm/1.0
+  zephyrFolder: /Bill/TCI
+  featurePath: tests/bdd/features/bill/tci/tci_inquiry.feature
+  featuresRoot: tests/bdd/features/bill/
+  gitBranch: feat/bill-management
+  zephyrKey: ALPHA-T2132

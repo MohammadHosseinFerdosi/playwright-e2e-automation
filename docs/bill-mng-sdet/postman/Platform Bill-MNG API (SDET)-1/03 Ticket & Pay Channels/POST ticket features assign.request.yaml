@@ -1,0 +1,17 @@
+$kind: http-request
+description: TicketAssignRequest — exact shape depends on payment2 version; adjust feature fields from TicketFeatureListResponse.
+url: "{{baseUrl}}/bills/ticket/features/assign"
+method: POST
+headers:
+  ticket: "{{ticket}}"
+body:
+  type: text
+  content: |-
+    {
+      "ticketRequest": {
+        "billId": "{{billId}}",
+        "payId": "{{payId}}",
+        "callbackUrl": "{{callbackUrl}}"
+      }
+    }
+order: 4000

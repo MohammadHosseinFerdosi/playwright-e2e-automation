@@ -1,0 +1,30 @@
+$kind: http-request
+description: |-
+  Creates UtilityBill PENDING + payment ticket.
+  Assert amount >= 10001 Rials.
+  Saves {{ticket}} via collection test script.
+url: "{{baseUrl}}/bills/init"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "billId": "{{billId}}",
+      "payId": "{{payId}}",
+      "callbackUrl": "{{callbackUrl}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const j = pm.response.json();
+      pm.test('init has ticket', () => {
+        pm.expect(pm.response.code).to.eql(200);
+        pm.expect(j.ticket || (j.result && j.result.title === 'SUCCESS')).to.be.ok;
+      });
+      if (j.ticket) {
+        pm.environment.set('ticket', j.ticket);
+      }
+      if (j.billInfo && j.billInfo.trackingCode) {
+        pm.environment.set('trackingCode', j.billInfo.trackingCode);
+      }
+order: 3000

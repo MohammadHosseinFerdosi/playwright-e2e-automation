@@ -1,0 +1,5 @@
+$kind: http-request
+description: Staging only.
+url: "{{baseUrl}}/swagger-ui.html"
+method: GET
+order: 2000

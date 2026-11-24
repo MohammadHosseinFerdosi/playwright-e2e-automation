@@ -1,0 +1,19 @@
+$kind: http-request
+url: "{{baseUrl}}/bills/init"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "billId": "2664034900143",
+      "payId": "",
+      "callbackUrl": "{{callbackUrl}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('422 INVALID_PARAMETER', () => {
+        pm.expect(pm.response.code).to.eql(422);
+        pm.expect(pm.response.json().result.title).to.eql('INVALID_PARAMETER');
+      });
+order: 1000

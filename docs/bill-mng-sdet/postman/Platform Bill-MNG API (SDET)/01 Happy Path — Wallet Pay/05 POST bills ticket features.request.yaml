@@ -1,0 +1,13 @@
+$kind: http-request
+description: "Lists pay features: PAYMENT_WALLET / PAYMENT_DPG / PAYMENT_IPG (SDK settings)."
+url: "{{baseUrl}}/bills/ticket/features"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "billId": "{{billId}}",
+      "payId": "{{payId}}",
+      "callbackUrl": "{{callbackUrl}}"
+    }
+order: 5000

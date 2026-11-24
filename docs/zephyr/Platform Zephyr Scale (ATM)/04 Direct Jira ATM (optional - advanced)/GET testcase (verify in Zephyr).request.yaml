@@ -1,0 +1,11 @@
+$kind: http-request
+description: Calls Jira directly (not the local helper). Set collection/env variable JIRA_TOKEN to your PAT.
+url: "{{jiraAtm}}/testcase/{{zephyrKey}}"
+method: GET
+headers:
+  Accept: application/json
+auth:
+  type: bearer
+  credentials:
+    token: "{{JIRA_TOKEN}}"
+order: 1000

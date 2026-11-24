@@ -1,0 +1,13 @@
+$kind: http-request
+name: PUT admin bills configs/{type} — deactivate WATER
+description: Sets badge message. Inquiry may return BILL_TYPE_IS_INACTIVE. Re-run activate after test.
+url: "{{baseUrl}}/admin/bills/configs/{{utilityBillTypeCode}}"
+method: PUT
+body:
+  type: text
+  content: |-
+    {
+      "active": false,
+      "disableMessage": "این سرویس موقتا غیرفعال است"
+    }
+order: 4000

@@ -1,0 +1,8 @@
+$kind: http-request
+description: Past bill suggestions for User-Id. Body empty; header User-Id required.
+url: "{{baseUrl}}/bills/inquiry-suggestion"
+method: POST
+body:
+  type: text
+  content: "{}"
+order: 6000

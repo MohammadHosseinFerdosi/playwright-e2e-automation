@@ -1,0 +1,20 @@
+$kind: http-request
+description: Min pay amount = 10001 Rials (bill.min.pay.amount).
+url: "{{baseUrl}}/bills/init"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "billId": "2664034900143",
+      "payId": "1099157",
+      "callbackUrl": "{{callbackUrl}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('BILL_AMOUNT_INVALID', () => {
+        pm.expect(pm.response.code).to.eql(422);
+        pm.expect(pm.response.json().result.title).to.eql('BILL_AMOUNT_INVALID');
+      });
+order: 2000

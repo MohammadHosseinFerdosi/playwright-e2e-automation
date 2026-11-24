@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{baseUrl}}/bills/inquiry"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "billId": "236047406238",
+      "payId": "35005608"
+    }
+order: 8000

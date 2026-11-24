@@ -1,0 +1,40 @@
+DASHBOARD_USERNAME: test-staff-user
+DASHBOARD_PASSWORD: CHANGE_ME
+AGENT: WEBSITE
+WALLET_LIST:
+  - spend
+  - refund
+INVALID_WALLET_NAME: invalid
+UPPER_BOUND_AMOUNT: 5000000000
+INVALID_AGENT: invalid_agnet
+INVALID_USER_ID: invalid_user_id
+INVALID_WALLET_FAILURE_CONTENT:
+  title: WALLET_USER_NOT_FOUND
+  status: 8011
+  message: اطلاعات کاربری کیف پول کاربر مورد نظر یافت نشد
+  level: WARN
+SAME_SOURCE_AND_DESTINATION_WALLET_FAILURE_CONTENT:
+  title: INVALID_PARAMETER
+  status: 1054
+  message: کیف پول مبدا و مقصد هم نام می باشد
+  level: BLOCKER
+UPPER_BALANCE_TRANSFER_FAILURE_CONTENT:
+  title: WALLET_GW_CREDIT_NOT_ENOUGH
+  status: 8151
+  message: موجودی کافی نیست.
+  level: WARN
+ZERO_AMOUNT_TRANSFER_FAILURE_CONTENT:
+  title: INVALID_PARAMETER
+  status: 1054
+  message: اطلاعات ورودی اشتباه است.
+  level: WARN
+INVALID_USER_ID_FAILURE_CONTENT:
+  title: USER_NOT_FOUND
+  status: 1010
+  message: شماره همراه وارد شده عضو کمپانی‌پی نیست
+  level: WARN
+INVALID_AGENT_FAILURE_CONTENT:
+  title: FAILURE
+  status: 1000
+  message: عملیات ناموفق بود لطفا مجددا تلاش کنید
+  level: BLOCKER

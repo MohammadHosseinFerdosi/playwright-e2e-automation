@@ -1,0 +1,7 @@
+$kind: http-request
+description: Requires existing trackingCode belonging to another user.
+url: "{{baseUrl}}/bills/pending/{{trackingCode}}"
+method: GET
+headers:
+  User-Id: 00000000-0000-0000-0000-000000000000
+order: 6000

@@ -1,0 +1,20 @@
+$kind: http-request
+description: |-
+  Wallet pay. Body is WalletPayRequest → only ticket required.
+  On success status → PAID then async verify → CONFIRMED → settle → ORDERED.
+url: "{{baseUrl}}/bills/pay/wallet"
+method: POST
+body:
+  type: text
+  content: |-
+    {
+      "ticket": "{{ticket}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const j = pm.response.json();
+      pm.test('wallet pay accepted or known business error', () => {
+        pm.expect(['SUCCESS','WALLET_GW_CREDIT_NOT_ENOUGH','WALLET_USER_NOT_FOUND','BILL_PAY_BY_WALLET_NOT_SUPPORTED','PSPPROXY_ORDER_ID_DUPLICATE']).to.include(j.result.title);
+      });
+order: 6000
