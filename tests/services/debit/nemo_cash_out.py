@@ -37,7 +37,7 @@ logger = logging.getLogger(__name__)
 class NemoCashOutContext:
     """Per-scenario envelopes and flags for Nemo cash-out."""
 
-    secrets: CHANGE_ME
+    secrets: NemoSecrets
     last_result: dict[str, Any] = field(default_factory=dict)
     detail_result: dict[str, Any] = field(default_factory=dict)
     tracking_code: str | None = None
@@ -50,11 +50,11 @@ class NemoCashOutFlow:
     def __init__(
         self,
         client: ApiClient,
-        secrets: CHANGE_ME
+        secrets: NemoSecrets,
         wallet: NemoWalletDb | None = None,
     ) -> None:
         self._client = client
-        self._secrets = CHANGE_ME
+        self._secrets = secrets
         self._wallet = wallet
 
     @property
@@ -73,7 +73,7 @@ class NemoCashOutFlow:
             return
         self._wallet.close_open_settlements()
         if self._wallet.latest_cash_out_kyc_blocked():
-            self._secrets.register_kyc_blocked = CHANGE_ME
+            self._secrets.register_kyc_blocked = True
         self._wallet.assert_no_blocking_settlement()
 
     def assert_ready(self) -> None:
@@ -154,7 +154,7 @@ class NemoCashOutFlow:
                 raise AssertionError(f"{label}: SUCCESS but no trackingCode")
             return tracking
         if title in REGISTER_KYC_BLOCK_TITLES:
-            self._secrets.register_kyc_blocked = CHANGE_ME
+            self._secrets.register_kyc_blocked = True
             pytest.skip(
                 f"POST /wallets/cash-out/register blocked (title={title}). "
                 "Use detail on settled reference rows instead."

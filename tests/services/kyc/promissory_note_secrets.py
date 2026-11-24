@@ -97,7 +97,7 @@ def load_promissory_note_secrets(
 
 def require_promissory_note_secrets() -> PromissoryNoteSecrets:
     """Load secrets or skip the test."""
-    secrets = CHANGE_ME
+    secrets = load_promissory_note_secrets()
     if secrets is None:
         pytest.skip(
             "Missing secrets/uat_promissory_note.yaml — copy "

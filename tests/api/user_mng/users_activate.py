@@ -8,7 +8,7 @@ from tests.api.client import ApiClient
 def post_users_activate(
     client: ApiClient,
     user_id: str,
-    sms_token: CHANGE_ME
+    sms_token: str,
 ) -> dict[str, Any]:
     """Port of POST Users Activate.
 

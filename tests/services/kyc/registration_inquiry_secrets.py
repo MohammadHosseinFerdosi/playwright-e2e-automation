@@ -131,7 +131,7 @@ def load_registration_inquiry_secrets(
 
 def require_registration_inquiry_secrets() -> RegistrationInquirySecrets:
     """Load secrets or skip the test."""
-    secrets = CHANGE_ME
+    secrets = load_registration_inquiry_secrets()
     if secrets is None:
         pytest.skip(
             "Missing secrets/uat_registration_inquiry.yaml — copy "

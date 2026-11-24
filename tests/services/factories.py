@@ -35,7 +35,7 @@ class Business(BaseModel):
     business_id: str
     business_name: str
     user_name: str
-    password: CHANGE_ME
+    password: str
 
 
 class User(BaseModel):
@@ -94,7 +94,7 @@ class BusinessFactory:
                     business_id=business_id_from_create_body(last_result["body"]),
                     business_name=username,
                     user_name=username,
-                    password=CHANGE_ME
+                    password=password,
                 )
         raise RuntimeError(
             f"Business creation failed after {max_retry} tries; "

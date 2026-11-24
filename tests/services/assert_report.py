@@ -61,7 +61,7 @@ _IBAN_JSON_KEYS = frozenset(
     }
 )
 _BEARER_RE = re.compile(r"(?i)\bbearer\s+[A-Za-z0-9\-._~+/]+=*")
-_SECRET_KEYS = CHANGE_ME
+_SECRET_KEYS = {
     "authorization",
     "authtoken",
     "accesstoken",
@@ -80,7 +80,7 @@ _SECRET_KEYS = CHANGE_ME
     "proxyauthorization",
     "jwt",
 }
-_QUERY_SECRET_NAMES = CHANGE_ME
+_QUERY_SECRET_NAMES = {
     "access_token",
     "refresh_token",
     "id_token",
@@ -103,8 +103,8 @@ def mask_pii(text: str) -> str:
     return _IBAN_RE.sub(lambda m: f"{m.group(0)[:4]}***{m.group(0)[-4:]}", masked)
 
 
-_PASSWORD_PREFIX_LEN = CHANGE_ME
-_PASSWORD_SUFFIX_LEN = CHANGE_ME
+_PASSWORD_PREFIX_LEN = 2
+_PASSWORD_SUFFIX_LEN = 1
 _PASSWORD_MASK_FILL = "****"
 _PASSWORD_MIN_PLAIN_LEN = _PASSWORD_PREFIX_LEN + _PASSWORD_SUFFIX_LEN + 1
 _REDACTED = "***"

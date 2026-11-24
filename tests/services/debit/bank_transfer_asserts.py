@@ -48,7 +48,7 @@ def assert_zero_weight_block_then_pin(ctx: BankTransferContext) -> None:
 def assert_route_on_pinned_gateway(ctx: BankTransferContext) -> None:
     """Successful route lands on Mellat INTERNAL with zero fee."""
     attach_api_result("pinned route", ctx.route_result)
-    secrets = CHANGE_ME
+    secrets = ctx.secrets
     report = AssertionReport("route on pinned gateway")
     report.equals(
         "HTTP", actual=ctx.route_result.get("status_code"), expected=200
@@ -92,7 +92,7 @@ def assert_internal_fee_zero(ctx: BankTransferContext) -> None:
 def assert_inquiry_reports_active_gateway(ctx: BankTransferContext) -> None:
     """Inquiry after route shows the pinned Mellat client/bank."""
     attach_api_result("inquiry", ctx.inquiry_result)
-    secrets = CHANGE_ME
+    secrets = ctx.secrets
     report = AssertionReport("inquiry reports active gateway")
     report.equals(
         "HTTP", actual=ctx.inquiry_result.get("status_code"), expected=200

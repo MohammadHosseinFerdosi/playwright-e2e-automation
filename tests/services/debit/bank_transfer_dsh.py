@@ -57,7 +57,7 @@ def store_dsh_case(flow: BankTransferFlow, ctx: BankTransferContext, case: str) 
 def store_cross_bank_matrix(flow: BankTransferFlow, ctx: BankTransferContext) -> None:
     """Route three foreign IBANs while INTERNAL is pinned."""
     flow.pin_active_gateway()
-    secrets = CHANGE_ME
+    secrets = flow.secrets
     foreign = {
         "shahin": secrets.shahin_target_iban,
         "melli": secrets.melli_target_iban,
@@ -392,7 +392,7 @@ def store_transfer_after_route(flow: BankTransferFlow, ctx: BankTransferContext)
 
 def store_statements_apis(flow: BankTransferFlow, ctx: BankTransferContext) -> None:
     """POST /statements + GET account statements smoke."""
-    secrets = CHANGE_ME
+    secrets = flow.secrets
     windows = stmts.smoke_windows()
     try:
         items, from_ms, to_ms = stmts.fetch_provider_resilient(flow, windows)
@@ -435,7 +435,7 @@ def store_invalid_statements_dates(
     flow: BankTransferFlow, ctx: BankTransferContext
 ) -> None:
     """Inverted provider statement dates → client reject."""
-    secrets = CHANGE_ME
+    secrets = flow.secrets
     result = post_provider_statements(
         flow.client,
         ProviderStatementsRequest.model_validate(
@@ -461,7 +461,7 @@ def store_invalid_account_dates(
     flow: BankTransferFlow, ctx: BankTransferContext
 ) -> None:
     """Inverted account statement dates → client reject."""
-    secrets = CHANGE_ME
+    secrets = flow.secrets
     result = get_account_statements(
         flow.client,
         account_id=secrets.mellat_account_id,

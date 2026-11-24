@@ -57,7 +57,7 @@ class GenerateSignatureRequest(BaseModel):
 
     model_config = ConfigDict(populate_by_name=True, extra="ignore")
 
-    password: CHANGE_ME
+    password: str
     type: int
     provider_tracking_code: str = Field(alias="providerTrackingCode")
 

@@ -94,7 +94,7 @@ def skip_if_switch_setup(title: str | None, *, reason: str = "Switch setup") -> 
 
 @contextmanager
 def bank_transfer_routing_session(
-    secrets: CHANGE_ME
+    secrets: BankTransferSecrets,
 ) -> Iterator[BankTransferRoutingDb]:
     """Open Mongo, snapshot CASH_OUT weights, restore and close on exit."""
     routing = BankTransferRoutingDb(secrets)
@@ -115,7 +115,7 @@ class BankTransferRoutingDb:
     """Snapshot / pin / zero CASH_OUT routing weights for Debit QA."""
 
     def __init__(self, secrets: BankTransferSecrets) -> None:
-        self._secrets = CHANGE_ME
+        self._secrets = secrets
         self._client: MongoClient[Any] | None = None
         self._db: Database[Any] | None = None
 

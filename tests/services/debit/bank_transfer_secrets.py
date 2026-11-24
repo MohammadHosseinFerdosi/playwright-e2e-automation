@@ -104,7 +104,7 @@ def load_bank_transfer_secrets(
 
 def require_bank_transfer_secrets() -> BankTransferSecrets:
     """Load secrets or skip the test."""
-    secrets = CHANGE_ME
+    secrets = load_bank_transfer_secrets()
     if secrets is None:
         pytest.skip(
             "Missing secrets/uat_bank_transfer.yaml — copy "

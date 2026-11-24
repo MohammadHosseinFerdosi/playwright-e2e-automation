@@ -22,7 +22,7 @@ def expected_batch_parts(total_amount: int, chunk_size: int) -> int:
 def assert_ach_single_chunk_route(ctx: BankTransferContext) -> None:
     """Ordinary PAYA: type ACH, one mongo transaction, fee 0."""
     attach_api_result("ach route", ctx.route_result)
-    secrets = CHANGE_ME
+    secrets = ctx.secrets
     report = AssertionReport("ordinary PAYA route")
     report.equals("HTTP", actual=ctx.route_result.get("status_code"), expected=200)
     body = route_body_fields(ctx.route_result)
@@ -47,7 +47,7 @@ def assert_ach_single_chunk_route(ctx: BankTransferContext) -> None:
 def assert_ach_batch_route(ctx: BankTransferContext) -> None:
     """Batch PAYA: expected chunk count and amount sum."""
     attach_api_result("ach batch route", ctx.route_result)
-    secrets = CHANGE_ME
+    secrets = ctx.secrets
     total = int(ctx.flags["batch_total"])
     parts = expected_batch_parts(total, secrets.ach_chunk)
     report = AssertionReport("batch PAYA route")
@@ -92,7 +92,7 @@ def assert_ach_batch_inquiry_lists_splits(ctx: BankTransferContext) -> None:
     """Inquiry after batch PAYA stays routed and lists the split chunks."""
     assert_ach_batch_route(ctx)
     assert_ach_inquiry_routed(ctx)
-    secrets = CHANGE_ME
+    secrets = ctx.secrets
     total = int(ctx.flags["batch_total"])
     parts = expected_batch_parts(total, secrets.ach_chunk)
     body = route_body_fields(ctx.inquiry_result)

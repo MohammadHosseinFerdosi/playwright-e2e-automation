@@ -30,7 +30,7 @@ def registration_flow(
     mongo_client: MongoDbClient,
 ) -> Generator[RegistrationInquiryFlow, None, None]:
     """Snapshot weights, clear journals, restore settings after the scenario."""
-    secrets = CHANGE_ME
+    secrets = require_registration_inquiry_secrets()
     flow = RegistrationInquiryFlow(microservice_client, mongo_client, secrets)
     flow.prepare()
     yield flow

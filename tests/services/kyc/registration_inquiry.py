@@ -72,7 +72,7 @@ class RegistrationJournal(BaseModel):
 class RegistrationInquiryContext:
     """Per-scenario inquiry, settings, and journal envelopes."""
 
-    secrets: CHANGE_ME
+    secrets: RegistrationInquirySecrets
     inquiry_kind: str | None = None
     provider: str | None = None
     person: RegistrationPerson | None = None
@@ -100,11 +100,11 @@ class RegistrationInquiryFlow:
         self,
         client: ApiClient,
         mongo_client: MongoDbClient,
-        secrets: CHANGE_ME
+        secrets: RegistrationInquirySecrets,
     ) -> None:
         self._client = client
         self._mongo = mongo_client
-        self.secrets = CHANGE_ME
+        self.secrets = secrets
         self._snapshot: RegistrationSettingsSearchBody | None = None
 
     def prepare(self) -> None:

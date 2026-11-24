@@ -158,7 +158,7 @@ def store_scheduler_preserves_ip(
     """ACH scheduler triggers must not settle manual."""
     store_route_transfer_ip(flow, ctx)
     before = (ctx.mongo_doc or {}).get("status")
-    secrets = CHANGE_ME
+    secrets = flow.secrets
     post_trigger_transfer_report(
         flow.client,
         user_id=secrets.user_id,
@@ -227,7 +227,7 @@ def store_fee_zero(flow: BankTransferFlow, ctx: BankTransferContext) -> None:
 def store_every_bank_iban(flow: BankTransferFlow, ctx: BankTransferContext) -> None:
     """Manual accepts mellat/shahin/melli/parsian IBANs."""
     _pin(flow)
-    secrets = CHANGE_ME
+    secrets = flow.secrets
     ibans = {
         "mellat": secrets.mellat_target_iban,
         "shahin": secrets.shahin_target_iban,

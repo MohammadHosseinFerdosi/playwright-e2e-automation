@@ -25,7 +25,7 @@ from tests.ui.labels.app import AppLabels as L
 def require_dashboard_credentials(settings: Settings) -> tuple[str, str]:
     """Return dashboard username/password or raise when env secrets are missing."""
     username = settings.dashboard_username
-    password = CHANGE_ME
+    password = settings.dashboard_password
     if not username or not password:
         raise RuntimeError("DASHBOARD_USERNAME / DASHBOARD_PASSWORD required")
     return username, password
@@ -100,8 +100,8 @@ def inject_app_session(
     page: Page,
     *,
     settings: Settings,
-    access_token: CHANGE_ME
-    refresh_token: CHANGE_ME
+    access_token: str,
+    refresh_token: str,
     user_id: str,
     device_id: str,
     cell_number: str,
@@ -152,8 +152,8 @@ def inject_dashboard_session(
     page: Page,
     *,
     settings: Settings,
-    access_token: CHANGE_ME
-    refresh_token: CHANGE_ME
+    access_token: str,
+    refresh_token: str,
     username: str,
     permissions: list[Any],
 ) -> None:
@@ -250,8 +250,8 @@ class AppUiAuth:
         inject_app_session(
             page,
             settings=self._settings,
-            access_token=CHANGE_ME
-            refresh_token=CHANGE_ME
+            access_token=user.access_token,
+            refresh_token=user.refresh_token,
             user_id=user.user_id,
             device_id=user.device_id,
             cell_number=user.user_cell_number,
@@ -282,7 +282,7 @@ class DashboardUiAuth:
         self,
         page: Page,
         username: str,
-        password: CHANGE_ME
+        password: str,
     ) -> dict[str, Any]:
         """Log in via dashboard API, inject auth, navigate home when configured."""
         auth = login_to_dashboard(self._dashboard_client, username, password)

@@ -64,7 +64,7 @@ class BalanceContext:
     """Logged-in customer plus expected aggregate fields for assertions."""
 
     cell_number: str
-    access_token: CHANGE_ME
+    access_token: str
     expected_balance: int
     expected_cashoutable: int
     expected_non_cashoutable: int
@@ -250,7 +250,7 @@ class WalletBalanceService:
             )
         return self._require_token_context(
             cell_number=user.user_cell_number,
-            access_token=CHANGE_ME
+            access_token=user.access_token,
             expected_balance=expected_balance,
             expected_cashoutable=expected_cashoutable,
             expected_non_cashoutable=expected_non,
@@ -262,7 +262,7 @@ class WalletBalanceService:
         user = self._wallet_initializer.create_fresh_user(self._vars.user_cell_number_prefix)
         return self._require_token_context(
             cell_number=user.user_cell_number,
-            access_token=CHANGE_ME
+            access_token=user.access_token,
             expected_balance=0,
             expected_cashoutable=0,
             expected_non_cashoutable=0,
@@ -325,7 +325,7 @@ class WalletBalanceService:
             )
         return BalanceContext(
             cell_number=cell_number,
-            access_token=CHANGE_ME
+            access_token=access_token,
             expected_balance=expected_balance,
             expected_cashoutable=expected_cashoutable,
             expected_non_cashoutable=expected_non_cashoutable,

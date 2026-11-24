@@ -46,7 +46,7 @@ def nemo_secrets_ready() -> NemoSecrets:
 
 @pytest.fixture
 def nemo_wallet(
-    nemo_secrets_ready: CHANGE_ME
+    nemo_secrets_ready: NemoSecrets,
 ) -> Generator[NemoWalletDb | None, None, None]:
     """Open wallet_db when mongo_uri is set."""
     yield from co_fix.open_nemo_wallet(nemo_secrets_ready)
@@ -55,7 +55,7 @@ def nemo_wallet(
 @pytest.fixture
 def nemo_flow(
     microservice_client: ApiClient,
-    nemo_secrets_ready: CHANGE_ME
+    nemo_secrets_ready: NemoSecrets,
     nemo_wallet: NemoWalletDb | None,
 ) -> NemoCashOutFlow:
     """Nemo cash-out flow for e2e."""
@@ -88,7 +88,7 @@ def bt_flow(
 def gateway_flow(
     app_client: ApiClient,
     microservice_client: ApiClient,
-    nemo_secrets_ready: CHANGE_ME
+    nemo_secrets_ready: NemoSecrets,
 ) -> Generator[gw.NemoGatewayFlow, None, None]:
     """App-gateway prediction flow with weight snapshot restore."""
     bt = require_bank_transfer_secrets()

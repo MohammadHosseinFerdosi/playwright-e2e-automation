@@ -70,7 +70,7 @@ def pn_flow(
     pn_provider_guard: dict[str, Any],
 ) -> Generator[PromissoryNoteFlow, None, None]:
     """Clean tracked notes; restore pin and hasRenew if this scenario changed them."""
-    secrets = CHANGE_ME
+    secrets = require_promissory_note_secrets()
     flow = PromissoryNoteFlow(
         microservice_client,
         mongo_client,

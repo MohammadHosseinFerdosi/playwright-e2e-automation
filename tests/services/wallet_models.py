@@ -64,5 +64,5 @@ class ChargedBusiness(BaseModel):
     business_id: str
     business_name: str
     user_name: str
-    password: CHANGE_ME
+    password: str
     wallets: list[BusinessWalletInfo] = Field(default_factory=list)

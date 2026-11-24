@@ -71,7 +71,7 @@ class TciClient:
         """Final-term inquiry using an explicit password (auth-failure paths)."""
         request = TciServiceRequest.for_tel_inquiry(
             code=self._credentials.code,
-            password=CHANGE_ME
+            password=password,
             tel_number=tel_number,
             service=SERVICE_FINAL_TERM,
         )
@@ -80,7 +80,7 @@ class TciClient:
     def _inquire(self, tel_number: str, service: str) -> dict[str, Any]:
         request = TciServiceRequest.for_tel_inquiry(
             code=self._credentials.code,
-            password=CHANGE_ME
+            password=self._credentials.password,
             tel_number=tel_number,
             service=service,
         )

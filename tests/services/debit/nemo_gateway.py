@@ -140,7 +140,7 @@ class NemoGatewayFlow:
                 agenda=self._nemo.transfer_agenda,
                 targetIban=self._target_iban(gateway),
             ),
-            access_token=CHANGE_ME
+            access_token=self.access_token(),
             user_id=self._nemo.user_id,
             forwarded_for=self._nemo.forwarded_for,
         )
@@ -155,7 +155,7 @@ class NemoGatewayFlow:
                 agenda=self._nemo.transfer_agenda,
                 targetIban=self._bt.mellat_cross_bank_iban,
             ),
-            access_token=CHANGE_ME
+            access_token=self.access_token(),
             user_id=self._nemo.user_id,
             forwarded_for=self._nemo.forwarded_for,
         )
@@ -165,7 +165,7 @@ class NemoGatewayFlow:
         return post_transfer_fee(
             self._app,
             TransferFeeRequest(amount=self._nemo.safe_amount),
-            access_token=CHANGE_ME
+            access_token=self.access_token(),
             user_id=self._nemo.user_id,
             forwarded_for=self._nemo.forwarded_for,
         )

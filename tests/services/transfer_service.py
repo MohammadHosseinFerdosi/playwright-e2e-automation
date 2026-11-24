@@ -201,7 +201,7 @@ class TransferService:
             user_id=context.source.user_id,
             amount=context.transfer_amount,
             dest_cell_number=context.dest.user_cell_number,
-            access_token=CHANGE_ME
+            access_token=context.source.access_token,
         )
         context.ticket_result = ticket_result
         assert_status_ok("Create transfer ticket", ticket_result)

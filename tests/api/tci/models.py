@@ -14,7 +14,7 @@ class TciCredentialBody(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
     code: str
-    password: CHANGE_ME
+    password: str
 
 
 class TciParameter(BaseModel):
@@ -40,7 +40,7 @@ class TciServiceRequest(BaseModel):
         cls,
         *,
         code: str,
-        password: CHANGE_ME
+        password: str,
         tel_number: str,
         service: str,
     ) -> TciServiceRequest:

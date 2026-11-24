@@ -17,7 +17,7 @@ from tests.services.debit.bank_transfer_secrets import require_bank_transfer_sec
 @pytest.fixture
 def bt_flow(microservice_client: ApiClient) -> Generator[BankTransferFlow, None, None]:
     """Snapshot CASH_OUT weights; restore on teardown."""
-    secrets = CHANGE_ME
+    secrets = require_bank_transfer_secrets()
     routing = BankTransferRoutingDb(secrets)
     flow = BankTransferFlow(microservice_client, routing, secrets)
     flow.prepare()

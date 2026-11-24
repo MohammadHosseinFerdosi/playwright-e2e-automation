@@ -78,7 +78,7 @@ def load_postal_code_secrets(path: Path | None = None) -> PostalCodeSecrets | No
 
 def require_postal_code_secrets() -> PostalCodeSecrets:
     """Load secrets or skip the test."""
-    secrets = CHANGE_ME
+    secrets = load_postal_code_secrets()
     if secrets is None:
         pytest.skip(
             "Missing secrets/uat_postal_code.yaml — copy "

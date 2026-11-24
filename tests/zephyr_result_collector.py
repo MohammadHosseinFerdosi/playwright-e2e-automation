@@ -272,7 +272,7 @@ def _cycle_issue_keys(token: str, atm: str, case_keys: list[str]) -> list[str]:
 
 
 def _link_cycle_to_jira_issues(
-    token: CHANGE_ME
+    token: str,
     atm: str,
     cycle_key: str,
     name: str,
@@ -317,7 +317,7 @@ def _attach_allure_to_cycle(token: str, atm: str, cycle_key: str) -> None:
 
 
 def _create_cycle(
-    token: CHANGE_ME
+    token: str,
     atm: str,
     name: str,
     items: list[dict[str, Any]],
@@ -348,7 +348,7 @@ def _create_cycle(
 
 
 def _override_cycle(
-    token: CHANGE_ME
+    token: str,
     atm: str,
     cycle_key: str,
     items: list[dict[str, Any]],

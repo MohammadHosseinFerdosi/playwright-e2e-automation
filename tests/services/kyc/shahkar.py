@@ -53,7 +53,7 @@ class ShahkarJournal(BaseModel):
 class ShahkarContext:
     """Per-scenario inquiry and journal envelopes."""
 
-    secrets: CHANGE_ME
+    secrets: ShahkarSecrets
     national_code: str | None = None
     cell_number: str | None = None
     last_inquiry: dict[str, Any] = field(default_factory=dict)
@@ -82,11 +82,11 @@ class ShahkarFlow:
         self,
         client: ApiClient,
         mongo_client: MongoDbClient,
-        secrets: CHANGE_ME
+        secrets: ShahkarSecrets,
     ) -> None:
         self._client = client
         self._mongo = mongo_client
-        self.secrets = CHANGE_ME
+        self.secrets = secrets
         self._snapshot: ShahkarSettingDetail | None = None
         self._pinned = False
 

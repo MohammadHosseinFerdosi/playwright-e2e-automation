@@ -16,7 +16,7 @@ def load_nemo_secrets_or_skip() -> NemoSecrets:
 
 
 def open_nemo_wallet(
-    secrets: CHANGE_ME
+    secrets: NemoSecrets,
 ) -> Generator[NemoWalletDb | None, None, None]:
     """Yield opened wallet_db when mongo_uri is filled; else None."""
     uri = (secrets.mongo_uri or "").strip()
@@ -33,7 +33,7 @@ def open_nemo_wallet(
 
 def build_nemo_flow(
     client: ApiClient,
-    secrets: CHANGE_ME
+    secrets: NemoSecrets,
     wallet: NemoWalletDb | None,
 ) -> NemoCashOutFlow:
     """Construct flow for a scenario."""

@@ -23,7 +23,7 @@ class IpgMockCallbackBody(BaseModel):
 
 def post_ipg_result(
     client: ApiClient,
-    token: CHANGE_ME
+    token: str,
     status: int,
 ) -> dict[str, Any]:
     """Port of POST IPG Result — simulate PSP callback into Platform mock.

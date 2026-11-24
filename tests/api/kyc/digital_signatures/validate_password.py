@@ -20,7 +20,7 @@ def post_digital_signatures_validate_password(
     user_id: str,
     requester_app_name: str,
     *,
-    password: CHANGE_ME
+    password: str
 ) -> dict[str, Any]:
     """Validate a digital-signature password."""
     path = client.ms_path(

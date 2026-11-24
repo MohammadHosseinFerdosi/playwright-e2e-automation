@@ -8,7 +8,7 @@ from tests.api.client import ApiClient
 def post_users_login(
     client: ApiClient,
     user_id: str,
-    password: CHANGE_ME
+    password: str,
     device_info: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Port of POST Users Login.

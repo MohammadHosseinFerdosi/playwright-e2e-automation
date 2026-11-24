@@ -45,7 +45,7 @@ def login_business(client: ApiClient, username: str, password: str) -> str:
 def login_to_dashboard(
     client: ApiClient,
     username: str,
-    password: CHANGE_ME
+    password: str,
     *,
     zone: str = "dashboard",
 ) -> dict[str, str]:
@@ -60,7 +60,7 @@ def login_to_dashboard(
     )
     body = result["body"]
     if isinstance(body, OAuthTokenBody):
-        access_token = CHANGE_ME
+        access_token = body.access_token
         refresh_token = body.refresh_token or ""
     elif isinstance(body, dict) and "access_token" in body:
         access_token = body["access_token"]

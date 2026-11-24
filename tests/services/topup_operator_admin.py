@@ -43,11 +43,11 @@ class TopupOperatorAdminSession:
         self,
         client: ApiClient,
         settings: Settings,
-        access_token: CHANGE_ME
+        access_token: str,
     ) -> None:
         self._client = client
         self._user_id = require_dashboard_username(settings)
-        self._access_token = CHANGE_ME
+        self._access_token = access_token
         self.ui_values: list[int] | None = None
         self.admin_configs: list[OperatorConfig] | None = None
         self.product: TopUpProduct | None = None
@@ -70,7 +70,7 @@ class TopupOperatorAdminSession:
             self._client,
             self._user_id,
             TopUpProduct.INTERNET,
-            access_token=CHANGE_ME
+            access_token=self._access_token,
         )
         ensure_ok(result, context="GET internet operator settings")
         body = result["body"]
@@ -86,7 +86,7 @@ class TopupOperatorAdminSession:
             self._user_id,
             TopUpProduct.INTERNET,
             configs,
-            access_token=CHANGE_ME
+            access_token=self._access_token,
         )
         ensure_ok(result, context="PUT internet operator settings (restore)")
         self._admin_restored = True
@@ -100,7 +100,7 @@ class TopupOperatorAdminSession:
             self._user_id,
             self.product,
             self.admin_configs,
-            access_token=CHANGE_ME
+            access_token=self._access_token,
         )
 
     def assert_mci_internet_weights(self, raw: str) -> None:
@@ -135,7 +135,7 @@ def bind_topup_operator_admin(
     request: pytest.FixtureRequest,
     client: ApiClient,
     settings: Settings,
-    access_token: CHANGE_ME
+    access_token: str,
 ) -> TopupOperatorAdminSession:
     """Create a session and register teardown restore."""
     session = TopupOperatorAdminSession(client, settings, access_token)

@@ -29,7 +29,7 @@ def shahkar_flow(
     mongo_client: MongoDbClient,
 ) -> Generator[ShahkarFlow, None, None]:
     """Clear journals; pin and restore provider weights only when a cell is selected."""
-    secrets = CHANGE_ME
+    secrets = require_shahkar_secrets()
     flow = ShahkarFlow(microservice_client, mongo_client, secrets)
     flow.prepare()
     yield flow

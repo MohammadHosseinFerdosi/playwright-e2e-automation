@@ -33,7 +33,7 @@ def ds_flow(
     mongo_client: MongoDbClient,
 ) -> Generator[DigitalSignatureFlow, None, None]:
     """Clean shared UAT digital-signature state before and after each scenario."""
-    secrets = CHANGE_ME
+    secrets = require_digital_signature_secrets()
     flow = DigitalSignatureFlow(microservice_client, mongo_client, secrets)
     flow.prepare_clean_state()
     yield flow

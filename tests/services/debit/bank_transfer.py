@@ -50,7 +50,7 @@ MELLAT_INVALID_ROUTE_STEP = (
 class BankTransferContext:
     """Per-scenario envelopes, mongo rows, and multi-call extras."""
 
-    secrets: CHANGE_ME
+    secrets: BankTransferSecrets
     tracking_code: str | None = None
     last_result: dict[str, Any] = field(default_factory=dict)
     route_result: dict[str, Any] = field(default_factory=dict)
@@ -76,11 +76,11 @@ class BankTransferFlow:
         self,
         client: ApiClient,
         routing: BankTransferRoutingDb,
-        secrets: CHANGE_ME
+        secrets: BankTransferSecrets,
     ) -> None:
         self._client = client
         self._routing = routing
-        self._secrets = CHANGE_ME
+        self._secrets = secrets
         self._weight_snapshot: list[dict[str, Any]] | None = None
         self._account_snapshot: list[dict[str, Any]] | None = None
 
@@ -424,7 +424,7 @@ class BankTransferFlow:
 
     def store_scheduler_triggers(self, ctx: BankTransferContext) -> None:
         """Hit both ACH scheduler test triggers."""
-        secrets = CHANGE_ME
+        secrets = self._secrets
         ctx.scheduler_results = {
             "batch-inquiry": post_trigger_transfer_report(
                 self._client,
@@ -464,7 +464,7 @@ class BankTransferFlow:
         ctx.last_result = self._route(tc, iban="IR00INVALID")
 
     def _invalid_missing_tracking(self, ctx: BankTransferContext) -> None:
-        secrets = CHANGE_ME
+        secrets = self._secrets
         path = self._client.ms_path("/bank-transfer/transfer/route", MS_BANK_TRANSFER_PATH)
         payload = {
             "businessId": secrets.business_id,
@@ -523,7 +523,7 @@ class BankTransferFlow:
         owner_name: str | None = None,
         preferred_type: str | None = None,
     ) -> dict[str, Any]:
-        secrets = CHANGE_ME
+        secrets = self._secrets
         request = TransferRouteRequest.model_validate(
             {
                 "trackingCode": tracking_code,
@@ -541,7 +541,7 @@ class BankTransferFlow:
         return self._post_route(request)
 
     def _post_route(self, request: TransferRouteRequest) -> dict[str, Any]:
-        secrets = CHANGE_ME
+        secrets = self._secrets
         return post_bank_transfer_route(
             self._client,
             request,
@@ -561,7 +561,7 @@ class BankTransferFlow:
         preferred_type: str | None = None,
     ) -> dict[str, Any]:
         """POST route with a possibly incomplete payload (DSH negatives)."""
-        secrets = CHANGE_ME
+        secrets = self._secrets
         path = self._client.ms_path("/bank-transfer/transfer/route", MS_BANK_TRANSFER_PATH)
         payload: dict[str, Any] = {
             "businessId": secrets.business_id,
@@ -618,7 +618,7 @@ class BankTransferFlow:
         return last
 
     def _inquiry(self, tracking_code: str) -> dict[str, Any]:
-        secrets = CHANGE_ME
+        secrets = self._secrets
         return get_bank_transfer_inquiry(
             self._client,
             tracking_code,
@@ -628,7 +628,7 @@ class BankTransferFlow:
         )
 
     def _execute(self, tracking_code: str) -> dict[str, Any]:
-        secrets = CHANGE_ME
+        secrets = self._secrets
         return post_bank_transfer_execute(
             self._client,
             TransferExecuteRequest.model_validate({"trackingCode": tracking_code}),

@@ -41,7 +41,7 @@ def nemo_secrets_ready() -> NemoSecrets:
 
 @pytest.fixture
 def nemo_wallet(
-    nemo_secrets_ready: CHANGE_ME
+    nemo_secrets_ready: NemoSecrets,
 ) -> Generator[NemoWalletDb | None, None, None]:
     """Open wallet_db when mongo_uri is set."""
     yield from fixtures.open_nemo_wallet(nemo_secrets_ready)
@@ -50,7 +50,7 @@ def nemo_wallet(
 @pytest.fixture
 def nemo_flow(
     microservice_client: ApiClient,
-    nemo_secrets_ready: CHANGE_ME
+    nemo_secrets_ready: NemoSecrets,
     nemo_wallet: NemoWalletDb | None,
 ) -> NemoCashOutFlow:
     """Nemo cash-out flow bound to MS client."""

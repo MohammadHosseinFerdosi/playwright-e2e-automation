@@ -370,7 +370,7 @@ def _ach_missing_tracking(flow: BankTransferFlow, ctx: BankTransferContext) -> N
 
 
 def _post_statements(flow: BankTransferFlow, from_ms: int, to_ms: int) -> dict[str, Any]:
-    secrets = CHANGE_ME
+    secrets = flow.secrets
     return post_provider_statements(
         flow.client,
         ProviderStatementsRequest.model_validate(

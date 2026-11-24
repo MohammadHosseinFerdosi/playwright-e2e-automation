@@ -21,7 +21,7 @@ class DigitalSignatureSecrets(BaseModel):
     user_id: str
     requester_app_name: str = "credit-onboarding"
     signature_type: int = 1
-    password: CHANGE_ME
+    password: str
     custom_video_text: str
 
     birth_date_register: str
@@ -72,7 +72,7 @@ def load_digital_signature_secrets(
 
 def require_digital_signature_secrets() -> DigitalSignatureSecrets:
     """Load secrets or skip the test."""
-    secrets = CHANGE_ME
+    secrets = load_digital_signature_secrets()
     if secrets is None:
         pytest.skip(
             "Missing secrets/uat_digital_signature.yaml — copy "

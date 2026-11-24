@@ -175,7 +175,7 @@ def _(operators_result: dict[str, Any]) -> None:
 )
 def _(
     settings: Settings,
-    access_token: CHANGE_ME
+    access_token: str,
     operator_id: str,
     cell_number: str,
     sim_card_type: str | None,

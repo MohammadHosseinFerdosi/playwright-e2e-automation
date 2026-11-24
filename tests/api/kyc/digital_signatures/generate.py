@@ -22,7 +22,7 @@ def post_digital_signatures_generate(
     user_id: str,
     requester_app_name: str,
     *,
-    password: CHANGE_ME
+    password: str,
     signature_type: int,
     provider_tracking_code: str,
 ) -> dict[str, Any]:

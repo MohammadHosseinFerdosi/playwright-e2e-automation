@@ -59,13 +59,13 @@ class DirectRouteFlow:
         self,
         client: ApiClient,
         routing: BankTransferRoutingDb,
-        secrets: CHANGE_ME
+        secrets: BankTransferSecrets,
         *,
         rail: Rail,
     ) -> None:
         self._client = client
         self._routing = routing
-        self._secrets = CHANGE_ME
+        self._secrets = secrets
         self.rail = rail
         self._account_snap: list[dict[str, Any]] | None = None
         self._ft_shahin_kind = "ACH"
@@ -154,7 +154,7 @@ class DirectRouteFlow:
 
     def _ft_shahin_route_kwargs(self) -> dict[str, Any]:
         """Source IBAN, dest IBAN, type, and amount for the ft shahin rail."""
-        secrets = CHANGE_ME
+        secrets = self._secrets
         source = secrets.ft_shahin_paya_source_iban
         table: dict[str, tuple[str, str, str, int]] = {
             "ACH": (
@@ -195,7 +195,7 @@ class DirectRouteFlow:
         preferred_type: str | None = None,
     ) -> dict[str, Any]:
         """POST direct-route."""
-        secrets = CHANGE_ME
+        secrets = self._secrets
         defaults = self._ft_shahin_route_kwargs() if self.rail == "ft_shahin" else {}
         chosen_amount = (
             amount if amount is not None else defaults.get("amount", secrets.safe_amount)
@@ -219,7 +219,7 @@ class DirectRouteFlow:
         return result
 
     def _post_direct(self, request: TransferDirectRouteRequest) -> dict[str, Any]:
-        secrets = CHANGE_ME
+        secrets = self._secrets
         return post_bank_transfer_direct_route(
             self._client,
             request,
@@ -230,7 +230,7 @@ class DirectRouteFlow:
 
     def execute(self, tracking_code: str) -> dict[str, Any]:
         """POST /transfer."""
-        secrets = CHANGE_ME
+        secrets = self._secrets
         return post_bank_transfer_execute(
             self._client,
             TransferExecuteRequest.model_validate({"trackingCode": tracking_code}),
@@ -241,7 +241,7 @@ class DirectRouteFlow:
 
     def inquiry(self, tracking_code: str) -> dict[str, Any]:
         """GET inquiry."""
-        secrets = CHANGE_ME
+        secrets = self._secrets
         return get_bank_transfer_inquiry(
             self._client,
             tracking_code,

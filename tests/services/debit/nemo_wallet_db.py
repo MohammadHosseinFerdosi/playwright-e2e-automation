@@ -27,7 +27,7 @@ class NemoWalletDb:
     """Class + fixture Mongo access to wallet_db cash_outs / transfers."""
 
     def __init__(self, secrets: NemoSecrets) -> None:
-        self._secrets = CHANGE_ME
+        self._secrets = secrets
         self._client: MongoClient[Any] | None = None
         self._db: Database[Any] | None = None
 

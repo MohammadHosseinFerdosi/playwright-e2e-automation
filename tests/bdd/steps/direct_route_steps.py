@@ -29,7 +29,7 @@ def melli_direct_flow(
     microservice_client: ApiClient,
 ) -> Generator[DirectRouteFlow, None, None]:
     """Melli TREASURY account snapshot/restore."""
-    secrets = CHANGE_ME
+    secrets = require_bank_transfer_secrets()
     routing = BankTransferRoutingDb(secrets)
     flow = DirectRouteFlow(microservice_client, routing, secrets, rail="melli")
     flow.prepare()
@@ -42,7 +42,7 @@ def mellat_direct_flow(
     microservice_client: ApiClient,
 ) -> Generator[DirectRouteFlow, None, None]:
     """Mellat direct-route clientIds snapshot/restore."""
-    secrets = CHANGE_ME
+    secrets = require_bank_transfer_secrets()
     routing = BankTransferRoutingDb(secrets)
     flow = DirectRouteFlow(microservice_client, routing, secrets, rail="mellat")
     flow.prepare()

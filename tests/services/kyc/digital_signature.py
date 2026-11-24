@@ -70,7 +70,7 @@ def fixture_b64(name: str) -> str:
 class DigitalSignatureContext:
     """Mutable per-scenario digital-signature state."""
 
-    secrets: CHANGE_ME
+    secrets: DigitalSignatureSecrets
     provider_tracking_code: str | None = None
     signature_tracking_code: str | None = None
     last_result: dict[str, Any] = field(default_factory=dict)
@@ -83,11 +83,11 @@ class DigitalSignatureFlow:
         self,
         client: ApiClient,
         mongo: MongoDbClient,
-        secrets: CHANGE_ME
+        secrets: DigitalSignatureSecrets,
     ) -> None:
         self._client = client
         self._mongo = mongo
-        self._secrets = CHANGE_ME
+        self._secrets = secrets
 
     @property
     def secrets(self) -> DigitalSignatureSecrets:
@@ -399,7 +399,7 @@ class DigitalSignatureFlow:
             self._client,
             self._secrets.user_id,
             self._secrets.requester_app_name,
-            password=CHANGE_ME
+            password=self._secrets.password,
             signature_type=self._secrets.signature_type,
             provider_tracking_code=provider_tracking_code,
         )
@@ -419,7 +419,7 @@ class DigitalSignatureFlow:
             self._client,
             self._secrets.user_id,
             self._secrets.requester_app_name,
-            password=CHANGE_ME
+            password=self._secrets.password,
         )
 
     def find_dsp_by_provider_tracking(self, provider_tracking_code: str) -> dict[str, Any]:

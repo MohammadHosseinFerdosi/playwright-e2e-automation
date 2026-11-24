@@ -73,13 +73,13 @@ class MySQLClient:
         user = db_name.replace("_db", "_user")
         host = self._settings.mysql_db_default_host
         port = self._settings.mysql_db_default_port
-        password = CHANGE_ME
+        password = self._settings.mysql_db_default_pass
 
         if db_name == "wallet_provider_db":
-            password = CHANGE_ME
+            password = self._settings.wallet_provider_mysql_db_pass
             host = self._settings.wallet_provider_mysql_db_host
         elif db_name == "general_ledger_db":
-            password = CHANGE_ME
+            password = self._settings.general_ledger_mysql_db_pass
             host = self._settings.general_ledger_mysql_db_host
 
         return {

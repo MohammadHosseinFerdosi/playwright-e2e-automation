@@ -138,7 +138,7 @@ def load_nemo_secrets(path: Path | None = None) -> NemoSecrets | None:
 
 def require_nemo_secrets() -> NemoSecrets:
     """Load secrets or skip the test."""
-    secrets = CHANGE_ME
+    secrets = load_nemo_secrets()
     if secrets is None:
         pytest.skip(
             "Missing secrets/uat_nemo.yaml — copy secrets/uat_nemo.example.yaml "

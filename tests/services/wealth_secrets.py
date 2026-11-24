@@ -56,7 +56,7 @@ def load_wealth_secrets(path: Path | None = None) -> WealthSecrets | None:
 
 def require_wealth_secrets() -> WealthSecrets:
     """Load secrets or skip the test."""
-    secrets = CHANGE_ME
+    secrets = load_wealth_secrets()
     if secrets is None:
         pytest.skip(
             "Missing secrets/uat_wealth.yaml — copy "

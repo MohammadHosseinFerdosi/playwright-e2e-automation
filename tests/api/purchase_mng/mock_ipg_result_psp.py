@@ -7,7 +7,7 @@ from tests.api.client import ApiClient
 
 def post_ipg_result_psp(
     client: ApiClient,
-    token: CHANGE_ME
+    token: str,
     status: int,
     trace_id: str,
     rrn: str,

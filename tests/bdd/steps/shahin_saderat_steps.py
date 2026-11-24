@@ -36,7 +36,7 @@ def ft_shahin_direct_flow(
     microservice_client: ApiClient,
 ) -> Generator[DirectRouteFlow, None, None]:
     """Snapshot and restore the ft shahin TREASURY account."""
-    secrets = CHANGE_ME
+    secrets = require_bank_transfer_secrets()
     routing = BankTransferRoutingDb(secrets)
     flow = DirectRouteFlow(microservice_client, routing, secrets, rail="ft_shahin")
     flow.prepare()

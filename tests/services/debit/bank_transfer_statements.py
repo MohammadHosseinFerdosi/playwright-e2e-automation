@@ -79,7 +79,7 @@ def fetch_provider_resilient(
     account_number: str | None = None,
 ) -> tuple[list[dict[str, Any]], int, int]:
     """Try POST /statements across windows until rows or hard failure."""
-    secrets = CHANGE_ME
+    secrets = flow.secrets
     bank = bank_code or secrets.mellat_bank_code
     account = account_number or secrets.mellat_account_number
     errors: list[str] = []
@@ -210,7 +210,7 @@ def _assert_amount_shape(
 
 def assert_pagination_contract(flow: BankTransferFlow) -> None:
     """Walk a few pages; skip when Mellat UAT ignores page/size."""
-    secrets = CHANGE_ME
+    secrets = flow.secrets
     now = now_ms()
     from_ms, to_ms = now - 12 * HOUR_MS, now
     pages: list[int] = []

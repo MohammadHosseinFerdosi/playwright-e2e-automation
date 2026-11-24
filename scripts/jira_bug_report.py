@@ -764,7 +764,7 @@ def _link_new_bug(
     client: httpx.Client,
     *,
     atm: str,
-    token: CHANGE_ME
+    token: str,
     bug_key: str,
     ticket: str | None,
     link_type: str,

@@ -15,7 +15,7 @@ class OAuthTokenBody(BaseModel):
 
     model_config = ConfigDict(extra="ignore")
 
-    access_token: CHANGE_ME
+    access_token: str
     refresh_token: str | None = None
     token_type: str | None = None
     expires_in: int | None = None
@@ -26,7 +26,7 @@ class OAuthTokenBody(BaseModel):
 def post_oauth_token(
     client: ApiClient,
     username: str,
-    password: CHANGE_ME
+    password: str,
     device_id: str,
     client_id: str | None = None,
     zone: str | None = None,

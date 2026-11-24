@@ -35,7 +35,7 @@ def topup_operator_admin(
     request: pytest.FixtureRequest,
     dashboard_client: ApiClient,
     settings: Settings,
-    dashboard_access_token: CHANGE_ME
+    dashboard_access_token: str,
 ) -> TopupOperatorAdminSession:
     """Per-scenario internet-package admin config note/restore session."""
     return bind_topup_operator_admin(request, dashboard_client, settings, dashboard_access_token)

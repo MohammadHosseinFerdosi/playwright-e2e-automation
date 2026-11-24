@@ -65,7 +65,7 @@ def load_shahkar_secrets(path: Path | None = None) -> ShahkarSecrets | None:
 
 def require_shahkar_secrets() -> ShahkarSecrets:
     """Load secrets or skip the test."""
-    secrets = CHANGE_ME
+    secrets = load_shahkar_secrets()
     if secrets is None:
         pytest.skip(
             "Missing secrets/uat_shahkar.yaml — copy "

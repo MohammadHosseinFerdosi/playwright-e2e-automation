@@ -26,7 +26,7 @@ class TciCredentials(BaseModel):
 
     base_url: str = "https://bill.demo-platform.com/tci/"
     code: str
-    password: CHANGE_ME
+    password: str
 
 
 _CASES_NEEDING_INQUIRY_ID = frozenset(

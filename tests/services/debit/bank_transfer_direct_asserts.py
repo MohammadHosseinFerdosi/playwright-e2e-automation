@@ -54,7 +54,7 @@ def assert_happy(flow: DirectRouteFlow, ctx: BankTransferContext) -> None:
     body = route_body_fields(ctx.route_result)
     report.check("typed", isinstance(body, TransferRouteBody))
     kind = str(ctx.flags.get("ft_shahin_kind") or "ACH")
-    tokens = CHANGE_ME
+    tokens = _KIND_TYPE[kind]
     if isinstance(body, TransferRouteBody):
         report.equals("client", actual=body.client_code, expected=flow.client_code())
         report.equals("bank", actual=body.bank_code, expected=flow.bank_code())

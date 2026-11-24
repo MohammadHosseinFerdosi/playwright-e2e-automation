@@ -22,7 +22,7 @@ from tests.config.constants import PLATFORM_VERSION_2023
 
 def _app_headers(
     *,
-    access_token: CHANGE_ME
+    access_token: str,
     user_id: str,
     forwarded_for: str,
     platform_version: str,
@@ -41,7 +41,7 @@ def post_transfer_route_prediction(
     client: ApiClient,
     request: TransferRoutePredictionRequest,
     *,
-    access_token: CHANGE_ME
+    access_token: str,
     user_id: str,
     forwarded_for: str,
     platform_version: str = PLATFORM_VERSION_2023,
@@ -50,7 +50,7 @@ def post_transfer_route_prediction(
     result = client.post(
         "/nemo/transfer/route-prediction",
         headers=_app_headers(
-            access_token=CHANGE_ME
+            access_token=access_token,
             user_id=user_id,
             forwarded_for=forwarded_for,
             platform_version=platform_version,
@@ -67,7 +67,7 @@ def post_transfer_fee(
     client: ApiClient,
     request: TransferFeeRequest,
     *,
-    access_token: CHANGE_ME
+    access_token: str,
     user_id: str,
     forwarded_for: str,
     platform_version: str = PLATFORM_VERSION_2023,
@@ -76,7 +76,7 @@ def post_transfer_fee(
     result = client.post(
         "/nemo/transfer/fee",
         headers=_app_headers(
-            access_token=CHANGE_ME
+            access_token=access_token,
             user_id=user_id,
             forwarded_for=forwarded_for,
             platform_version=platform_version,

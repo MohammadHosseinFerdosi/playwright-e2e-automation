@@ -28,7 +28,7 @@ def postal_code_flow(
     mongo_client: MongoDbClient,
 ) -> Generator[PostalCodeFlow, None, None]:
     """Snapshot weights, clear journals, restore settings after the scenario."""
-    secrets = CHANGE_ME
+    secrets = require_postal_code_secrets()
     flow = PostalCodeFlow(microservice_client, mongo_client, secrets)
     flow.prepare()
     yield flow

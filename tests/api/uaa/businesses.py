@@ -10,7 +10,7 @@ def post_admin_businesses(
     client: ApiClient,
     name: str,
     username: str,
-    password: CHANGE_ME
+    password: str,
     roles: list[str],
     zone: str | None = None,
 ) -> dict[str, Any]:

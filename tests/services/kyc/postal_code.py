@@ -53,7 +53,7 @@ class PostalJournal(BaseModel):
 class PostalCodeContext:
     """Per-scenario inquiry, settings, and journal envelopes."""
 
-    secrets: CHANGE_ME
+    secrets: PostalCodeSecrets
     provider: str | None = None
     last_inquiry: dict[str, Any] = field(default_factory=dict)
     last_settings: dict[str, Any] = field(default_factory=dict)
@@ -79,11 +79,11 @@ class PostalCodeFlow:
         self,
         client: ApiClient,
         mongo_client: MongoDbClient,
-        secrets: CHANGE_ME
+        secrets: PostalCodeSecrets,
     ) -> None:
         self._client = client
         self._mongo = mongo_client
-        self.secrets = CHANGE_ME
+        self.secrets = secrets
         self._snapshot: AddressSettingDetail | None = None
 
     def prepare(self) -> None:

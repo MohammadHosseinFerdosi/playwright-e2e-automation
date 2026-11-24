@@ -260,13 +260,13 @@ class PromissoryNoteFlow:
         self,
         client: ApiClient,
         mongo: MongoDbClient,
-        secrets: CHANGE_ME
+        secrets: PromissoryNoteSecrets,
         settings: Settings,
         settings_snapshot: dict[str, Any] | None = None,
     ) -> None:
         self._client = client
         self._mongo = mongo
-        self._secrets = CHANGE_ME
+        self._secrets = secrets
         self._settings = settings
         self._settings_snapshot = settings_snapshot
         self._did_pin = False

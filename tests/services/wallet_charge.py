@@ -67,7 +67,7 @@ class WalletChargeCollaborator:
             user_id=user.user_id,
             user_cell_number=user.user_cell_number,
             user_national_code=user.user_national_code,
-            access_token=CHANGE_ME
+            access_token=user.access_token,
             wallets=wallets,
             total_initial_amount=total,
         )
@@ -109,7 +109,7 @@ class WalletChargeCollaborator:
             business_id=business.business_id,
             business_name=business.business_name,
             user_name=business.user_name,
-            password=CHANGE_ME
+            password=business.password,
             wallets=wallets,
         )
 
